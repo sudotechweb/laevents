@@ -1,0 +1,4 @@
+kreait_firebase:
+    projects:
+        laevents:
+          credentials: '%kernel.project_dir%/config/laevents_credentials.json'

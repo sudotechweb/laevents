@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <div class="jumbotron">
+            <h1 class="display-3">Welcome</h1>
+            <p class="lead">We got all Lae Events right here in one place!</p>
+            <hr class="my-2">
+            <p>More info</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{{('event_index')}}" role="button">View All Events</a>
+            </p>
+        </div>
+    {% else %}
+    <div class="container">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6 text-center">
+                <form method="POST">
+                    <fieldset class="form-group row">
+                        <legend class="col-form-legend col-sm-1-12 h1 diplay-1">Login</legend>
+                        <div class="col-sm-1-12">
+                            <div class="form-group row">
+                                <label for="email" class="col-3 text-right">email</label>
+                                <div class="col-9">
+                                    <input type="email" class="form-control" name="email" id="email-input" aria-describedby="helpId" placeholder="someone@domain.com">
+                                    <!-- <small id="helpId" class="form-text text-muted">type in your email address to sign-in</small> -->
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-3 text-right">password</label>
+                                <div class="col-9">
+                                    <input type="text" name="password" id="password" class="form-control" placeholder="**************" aria-describedby="helpId">
+                                    <!-- <small id="helpId" class="text-muted">type in your password</small> -->
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

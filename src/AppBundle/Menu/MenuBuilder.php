@@ -15,10 +15,13 @@ class MenuBuilder {
         $this->factory = $factory;
     }
 
-    public function createMenu(array $options)
+    public function createMainMenu(array $options)
     {
+        $options = [
+            'attribute' => ['class' => 'test'],
+        ];
         $menu = $this->factory->createItem('root');
-        $menu->addChild('Home', ['route'=>'home']);
+        $menu->addChild('Home', ['route'=>'home', 'options' => ['ancestorClass' => 'test-ancestor', 'branchClass' => 'test-branch'], ]);
         return $menu;
     }
 }
