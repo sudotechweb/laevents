@@ -13,7 +13,10 @@ class HomeController extends AbstractController
      */
     public function index(Database $db)
     {
-        $dbref = $db->getReference('events');
-        return $this->render('home/index.html.twig', []);
+        $dbref = $db->getReference('test');
+        return $this->render('home/index.html.twig', [
+            'test' => $dbref->getValue(),
+            'events' => $db->getReference('events')->getValue(),
+        ]);
     }
 }

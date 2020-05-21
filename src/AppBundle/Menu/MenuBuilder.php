@@ -22,6 +22,7 @@ class MenuBuilder {
         ];
         $menu = $this->factory->createItem('root');
         $menu->addChild('Home', ['route'=>'home', 'options' => ['ancestorClass' => 'test-ancestor', 'branchClass' => 'test-branch'], ]);
+        $menu->addChild('Events', ['route'=>'event_index', 'options' => ['ancestorClass' => 'test-ancestor', 'branchClass' => 'test-branch'], ]);
         return $menu;
     }
 }

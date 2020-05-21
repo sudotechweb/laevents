@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Home {{parent()}}{% endblock %}
 
 {% block body %}
     {% if app.user %}
@@ -17,6 +17,7 @@
     <div class="container">
         <div class="row">
             <div class="col-3"></div>
+            {% if app.user %}
             <div class="col-6 text-center">
                 <form method="POST">
                     <fieldset class="form-group row">
@@ -45,7 +46,20 @@
                     </div>
                 </form>
             </div>
+            {% endif %}
         </div>
     </div>
     {% endif %}
+    <div class="row">
+        <div class="col">
+            <p>{{test|json_encode}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% for event in events %}
+                <p>{{event|json_encode}}</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

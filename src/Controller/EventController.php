@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Kreait\Firebase\Database;
 
 /**
  * @Route("/event")
@@ -28,18 +29,30 @@ class EventController extends AbstractController
     /**
      * @Route("/new", name="event_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Database $db): Response
     {
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $refPath = 'events/'.$event->getId().'/';
+            $dbref = $db->getReference($refPath);
+            $dbref
+                ->set([
+                    'title' => $form->getData()->getTitle(),
+                    'description' => $form->getData()->getDescription(),
+                    'venue' => $form->getData()->getVenue(),
+                    'Start' => date_format($form->getData()->getStart(), 'd-m-y'),
+                    'End' => date_format($form->getData()->getEnd(), 'd-m-y'),
+                ])
+            ;
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
 
-            return $this->redirectToRoute('event_index');
+            return $this->redirectToRoute('event_show', ['id'=> $event->getId()]);
         }
 
         return $this->render('event/new.html.twig', [
