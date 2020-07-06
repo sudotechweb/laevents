@@ -42,6 +42,11 @@ class Event
      */
     private $end;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $firebaseId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Event
     public function setEnd(\DateTimeInterface $end): self
     {
         $this->end = $end;
+
+        return $this;
+    }
+
+    public function getFirebaseId(): ?string
+    {
+        return $this->firebaseId;
+    }
+
+    public function setFirebaseId(?string $firebaseId): self
+    {
+        $this->firebaseId = $firebaseId;
 
         return $this;
     }

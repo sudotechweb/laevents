@@ -39,7 +39,7 @@ class EventController extends AbstractController
             $refPath = 'events/'.$event->getId().'/';
             $dbref = $db->getReference($refPath);
             $dbref
-                ->set([
+                ->push([
                     'title' => $form->getData()->getTitle(),
                     'description' => $form->getData()->getDescription(),
                     'venue' => $form->getData()->getVenue(),
@@ -47,7 +47,6 @@ class EventController extends AbstractController
                     'End' => date_format($form->getData()->getEnd(), 'd-m-y'),
                 ])
             ;
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
@@ -74,14 +73,16 @@ class EventController extends AbstractController
     /**
      * @Route("/{id}/edit", name="event_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Event $event): Response
+    public function edit(Request $request, Event $event, Database $db): Response
     {
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // $refPath = 'events/'.$event->getId().'/';
+            // $dbref = $db->getReference($refPath);
+            // $dbref->update([]);
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('event_index');
         }
 
