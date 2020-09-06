@@ -1,4 +1,6 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'row'}}) }}
+    {{ form_row(form.color, {'row_attr': {'class': 'input-group col-2'}}) }}
+    {{ form_row(form.name, {'row_attr': {'class': 'input-group col-10'}}) }}
+    {{ form_row(form.description, {'row_attr': {'class': 'col-12'}}) }}
+    <button class="mt-3 btn btn-lg btn-success">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

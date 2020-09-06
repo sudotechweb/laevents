@@ -46,6 +46,16 @@ class Event
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firebaseId;
+    
+        /**
+         * @ORM\Column(type="boolean", nullable=true)
+         */
+        private $publish;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="events")
+     */
+    private $category;
 
     public function getId(): ?int
     {
@@ -120,6 +130,30 @@ class Event
     public function setFirebaseId(?string $firebaseId): self
     {
         $this->firebaseId = $firebaseId;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getPublish(): ?bool
+    {
+        return $this->publish;
+    }
+
+    public function setPublish(?bool $publish): self
+    {
+        $this->publish = $publish;
 
         return $this;
     }

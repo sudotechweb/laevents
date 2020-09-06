@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Category{% endblock %}
+{% block title %}Edit {{category.name}} Category{% endblock %}
 
 {% block body %}
-    <h1>Edit Category</h1>
-
+    {% include "generic/page-header.html.twig" with {
+        pagetitle: 'Update '~category.name~' Category',
+        actions: [{
+            name: 'category_index',
+            label: 'back to list of categories',
+            class: 'success',
+        },{
+            name: 'event_index',
+            label: 'jump to list of events',
+            class: 'primary',
+        }]
+    } %}
     {{ include('category/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('category_index') }}">back to list</a>
-
     {{ include('category/_delete_form.html.twig') }}
 {% endblock %}
