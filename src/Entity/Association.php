@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
+use App\Repository\AssociationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ORM\Entity(repositoryClass=AssociationRepository::class)
  */
-class Category
+class Association
 {
     /**
      * @ORM\Id()
@@ -25,19 +25,29 @@ class Category
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $phone;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="association")
      */
     private $events;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $color;
+    private $logoFileName;
 
     public function __construct()
     {
@@ -48,7 +58,7 @@ class Category
     {
         return $this->getName();
     }
-    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +72,30 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }
@@ -90,7 +124,7 @@ class Category
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
-            $event->setCategory($this);
+            $event->setAssociation($this);
         }
 
         return $this;
@@ -101,24 +135,23 @@ class Category
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);
             // set the owning side to null (unless already changed)
-            if ($event->getCategory() === $this) {
-                $event->setCategory(null);
+            if ($event->getAssociation() === $this) {
+                $event->setAssociation(null);
             }
         }
 
         return $this;
     }
 
-    public function getColor(): ?string
+    public function getLogoFileName(): ?string
     {
-        return $this->color;
+        return $this->logoFileName;
     }
 
-    public function setColor(string $color): self
+    public function setLogoFileName(?string $logoFileName): self
     {
-        $this->color = $color;
+        $this->logoFileName = $logoFileName;
 
         return $this;
     }
-
 }

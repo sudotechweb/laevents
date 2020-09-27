@@ -1,0 +1,32 @@
+<div class="row mb-3">
+    <div class="col">
+        <p class="h4">Events related by event category</p>
+        <div class="card-columns">
+            {% for relatedEvent in relatedEvents %}
+                {% if relatedEvent.id is same as(event.id) %}
+                {% else %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title lead">
+                            <a class="" href="{{ path('event_show', {'id': relatedEvent.id}) }}">
+                            {{ relatedEvent.title }}
+                            </a>
+                        </p>
+                        <p class="card-text">{{ relatedEvent.venue }}. {{ relatedEvent.start ? relatedEvent.start|date('F j Y') : '' }} to {{ relatedEvent.end ? relatedEvent.end|date('F j Y') : '' }}</p>
+                        {% if relatedEvent.category %}
+                            <a href="{{path('category_show',{id:event.category.id})}}">
+                                <span class='badge badge-dark p-2 badge-sm float-right'>{{ relatedEvent.category }}</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                    <a class="card-footer bg-primary btn btn-block btn-info btn-sm" href="{{ path('event_show', {'id': relatedEvent.id}) }}">view details</a>
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="col">
+                    <p>no records found</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

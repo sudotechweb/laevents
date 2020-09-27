@@ -1,51 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Events{% endblock %}
+{% block title %}Upcoming Events{% endblock %}
 
 {% block body %}
     {% include "generic/page-header.html.twig" with {
-        pagetitle: 'Events',
+        pagetitle: 'Upcoming Events',
         actions: [{
             name: 'event_new',
             label: 'add new event',
             class: 'success',
         }]
     } %}
-    <div class="row">
-        <div class="col-xs-12">
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Venue</th>
-                        <th>Start</th>
-                        <th>End</th>
-                        <th>actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for event in events %}
-                    <tr>
-                        <td>{{ event.id }}</td>
-                        <td>{{ event.title }}</td>
-                        <td>{{ event.description }}</td>
-                        <td>{{ event.venue }}</td>
-                        <td>{{ event.start ? event.start|date('Y-m-d') : '' }}</td>
-                        <td>{{ event.end ? event.end|date('Y-m-d') : '' }}</td>
-                        <td class="btn-group">
-                            <a class="btn btn-sm btn-info" href="{{ path('event_show', {'id': event.id}) }}">show</a>
-                            <a class="btn btn-sm btn-warning" href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="7">no records found</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+    {% include "event/snippets/summary.html.twig" with {
+        events: events
+    } %}
 {% endblock %}

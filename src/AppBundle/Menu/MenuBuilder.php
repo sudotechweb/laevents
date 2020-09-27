@@ -46,6 +46,30 @@ class MenuBuilder {
                 'class' => 'nav-link'
             ],
         ]);
+        $menu->addChild('Categories', [
+            'route'=>'category_index',
+            'attributes' => [
+                'class' => 'nav-item nav'
+            ],
+            'childrenAttributes' => [
+                'class' => 'nav-item'
+            ],
+            'linkAttributes' => [
+                'class' => 'nav-link'
+            ],
+        ]);
+        $menu->addChild('Associations', [
+            'route'=>'association_index',
+            'attributes' => [
+                'class' => 'nav-item nav'
+            ],
+            'childrenAttributes' => [
+                'class' => 'nav-item'
+            ],
+            'linkAttributes' => [
+                'class' => 'nav-link'
+            ],
+        ]);
         return $menu;
     }
 }

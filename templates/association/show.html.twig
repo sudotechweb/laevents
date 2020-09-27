@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Association - {{ association.name }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col"><img src="{{ asset('uploads/images/' ~ association.logoFileName) }}" class="img-fluid"></div>
+        <div class="col-sm-12 col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{ association.name}}</h4>
+                    <p class="card-text">{{ association.email }}</p>
+                    <p class="card-text">{{ association.phone }}</p>
+                    <p class="card-text">{{ association.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

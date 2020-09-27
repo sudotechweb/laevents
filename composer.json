@@ -6,7 +6,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "knplabs/knp-menu-bundle": "^3.0",
-        "kreait/firebase-bundle": "^2.0",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "4.4.*",
         "symfony/console": "4.4.*",
@@ -28,9 +27,11 @@
         "symfony/twig-pack": "*",
         "symfony/validator": "4.4.*",
         "symfony/web-link": "4.4.*",
-        "symfony/yaml": "4.4.*"
+        "symfony/yaml": "4.4.*",
+        "vich/uploader-bundle": "^1.15"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "^1.0",
         "symfony/test-pack": "*"

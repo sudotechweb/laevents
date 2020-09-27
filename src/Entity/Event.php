@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,29 +35,44 @@ class Event
     private $venue;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $start;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $end;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $firebaseId;
-    
-        /**
-         * @ORM\Column(type="boolean", nullable=true)
-         */
-        private $publish;
+    private $publish;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="events")
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventDates::class, mappedBy="event")
+     */
+    private $eventDates;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="events")
+     */
+    private $association;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $imageFilename;
+
+    public function __construct()
+    {
+        $this->eventDates = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,18 +139,6 @@ class Event
         return $this;
     }
 
-    public function getFirebaseId(): ?string
-    {
-        return $this->firebaseId;
-    }
-
-    public function setFirebaseId(?string $firebaseId): self
-    {
-        $this->firebaseId = $firebaseId;
-
-        return $this;
-    }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -154,6 +159,61 @@ class Event
     public function setPublish(?bool $publish): self
     {
         $this->publish = $publish;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventDates[]
+     */
+    public function getEventDates(): Collection
+    {
+        return $this->eventDates;
+    }
+
+    public function addEventDate(EventDates $eventDate): self
+    {
+        if (!$this->eventDates->contains($eventDate)) {
+            $this->eventDates[] = $eventDate;
+            $eventDate->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventDate(EventDates $eventDate): self
+    {
+        if ($this->eventDates->contains($eventDate)) {
+            $this->eventDates->removeElement($eventDate);
+            // set the owning side to null (unless already changed)
+            if ($eventDate->getEvent() === $this) {
+                $eventDate->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAssociation(): ?Association
+    {
+        return $this->association;
+    }
+
+    public function setAssociation(?Association $association): self
+    {
+        $this->association = $association;
+
+        return $this;
+    }
+
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(string $imageFilename): self
+    {
+        $this->imageFilename = $imageFilename;
 
         return $this;
     }
