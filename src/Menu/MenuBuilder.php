@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Menu;
+namespace App\Menu;
 
 use Knp\Menu\FactoryInterface;
 
@@ -15,7 +15,7 @@ class MenuBuilder {
         $this->factory = $factory;
     }
 
-    public function createMainMenu(array $options)
+    public function createMenu(array $options)
     {
         $options = [
             'attribute' => ['class' => 'test'],

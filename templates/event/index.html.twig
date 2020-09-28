@@ -11,7 +11,10 @@
             class: 'success',
         }]
     } %}
-    {% include "event/snippets/summary.html.twig" with {
-        events: events
-    } %}
+    <div class="row">
+        {% include "event/snippets/summary.html.twig" with {
+            events: events
+        } %}
+        {% include "event/snippets/sidebar.html.twig" %}
+    </div>
 {% endblock %}
