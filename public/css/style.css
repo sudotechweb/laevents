@@ -4,3 +4,15 @@
     overflow: hidden;
     object-fit: cover;
 }
+
+.card-columns {
+    @include media-breakpoint-only(xs) {
+      column-count: 2;
+    }
+    @include media-breakpoint-only(lg) {
+      column-count: 4;
+    }
+    @include media-breakpoint-only(xl) {
+      column-count: 5;
+    }
+  }
