@@ -1,4 +1,7 @@
 {
+    "cloudinary/cloudinary_php": {
+        "version": "1.18.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99"
     },
@@ -155,6 +158,9 @@
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "speicher210/cloudinary-bundle": {
+        "version": "0.10.0"
     },
     "symfony/apache-pack": {
         "version": "1.0",
