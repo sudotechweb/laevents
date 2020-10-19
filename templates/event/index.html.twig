@@ -3,14 +3,7 @@
 {% block title %}Upcoming Events{% endblock %}
 
 {% block body %}
-    {% include "generic/page-header.html.twig" with {
-        pagetitle: 'Upcoming Events',
-        actions: [{
-            name: 'event_new',
-            label: 'add new event',
-            class: 'success',
-        }]
-    } %}
+    {% include "generic/page-header.html.twig" with { pagetitle: 'Upcoming Events' } %}
     <div class="row">
         {% include "event/snippets/summary.html.twig" with {
             events: events

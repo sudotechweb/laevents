@@ -4,6 +4,10 @@
             {{ knp_menu_render('main', {
                 'currentClass': 'active',
             })}}
+            {% set adminUrl = ea_url()
+                .setController('App\\Controller\\Admin\\EventCrudController')
+             %}
+            <a class="nav-link" href="{{adminUrl}}">Admin</a>
         </div>
     </nav>
 </div>

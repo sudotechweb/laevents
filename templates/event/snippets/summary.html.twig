@@ -1,25 +1,35 @@
 <div class="card-columns col-sm-9 no-gutters">
     {% for event in events %}
     {# <div class="col-sm-6"> #}
-        <div class="card">
+        <div class="card no-gutters">
             {% if (event.imageFilename) %}
-                <img class="img-fluid" src="{{asset('uploads/images/' ~ event.imageFilename) }}" class="img-fluid" alt="">
+                {# <img class="img-fluid" src="{{asset('uploads/images/' ~ event.imageFilename) }}" class="img-fluid" alt=""> #}
+                {# <img class="img-fluid" src="{{vich_uploader_asset(event) }}" class="img-fluid" alt=""> #}
+                <img class="img-fluid" src="{{cloudinary_url(event.imageFilename,{'width': 300}) }}" class="img-fluid" alt="">
             {% endif %}
             <div class="card-body">
                 <h4 class="card-title">
                     <a class="lead" href="{{ path('event_show', {'id': event.id}) }}">
                     {{ event.title }}
                     </a>
-                    {% if event.category %}
-                        {# <a href="{{path('category_show',{id:event.category.id})}}"> #}
-                            <span class='badge badge-info p-2 badge-sm float-right' style="background: {{event.category ? event.category.color }};">{{ event.category }}</span>
-                        {# </a> #}
-                    {% endif %}
                 </h4>
-                <p class="d-none d-md-block card-text">{{ event.description|length > 300 ? event.description|slice(0, 300) ~ '...': event.description }}</p>
-                <p class="d-none d-md-block card-text">{{ event.venue }}</p>
-                <p class="d-none d-md-block card-text">{{ event.start ? event.start|date('F j Y') : '' }}</p>
-                <p class="d-none d-md-block card-text">{{ event.end ? event.end|date('F j Y') : '' }}</p>
+                {% set desc = '' %}
+                {% if event.description|length > 200 %}
+                    {% set desc = event.description|slice(0,200) %}
+                {% else %}
+                    {% set desc = event.description %}
+                {% endif %}
+                {# <p class="d-none d-md-block card-text">{{ desc|raw }}</p> #}
+                <div class="list-group list-group-flush card-text">
+                    <p class="list-group-item mb-0">{{ event.venue }}</p>
+                    <p class="list-group-item mb-0">{{ event.start ? event.start|date('F j Y') : '' }}</p>
+                    <p class="list-group-item mb-0">{{ event.end ? event.end|date('F j Y') : '' }}</p>
+                </div>
+                {% if event.category %}
+                    {# <a href="{{path('category_show',{id:event.category.id})}}"> #}
+                        <p class='badge badge-pill px-2 text-sm float-right' style="background: {{event.category ? event.category.color }};">{{ event.category }}</p>
+                    {# </a> #}
+                {% endif %}
             </div>
             <a class="card-footer bg-primary btn btn-block btn-info btn-sm" href="{{ path('event_show', {'id': event.id}) }}">view details</a>
         </div>
