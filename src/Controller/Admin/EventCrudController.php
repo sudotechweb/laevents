@@ -38,7 +38,8 @@ class EventCrudController extends AbstractCrudController
         // before saving the filename, the uploaded file should be uploaded to cloudinary
         // the public id of that file will be stored in the database as imageFilename
         // $uploader = $this->container->get('speicher210_cloudinary.uploader');
-        $uploadedFile = \Cloudinary\Uploader::upload($entityInstance->getImageFile(),['folder'=>'events']);
+        $uploadedFile = \Cloudinary\Uploader::unsigned_upload($entityInstance->getImageFile(),'xt0x0u4t',['cloud_name' => 'hwnrajpbq','folder'=>'events']);
+        // $uploadedFile = \Cloudinary::api_sign_request()
         $entityInstance
             ->setImageFilename($uploadedFile['public_id'])
             ->setImageFile(null)
