@@ -85,7 +85,7 @@ class EventCrudController extends AbstractCrudController
         if (Crud::PAGE_INDEX === $pageName) {
             return [$id, $title, $venue, $start, $end, $association];
         } else if (Crud::PAGE_NEW === $pageName || Crud::PAGE_EDIT === $pageName) {
-            return [$imageFile, $title, $description, $venue, $start, $end, $publish, $category, $eventDates, $association];
+            return [$imageFile, $title, $description, $venue, $start, $end, $category, $eventDates, $association];
         }
     }
 }
