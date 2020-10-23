@@ -33,9 +33,10 @@ class EventCrudController extends AbstractCrudController
     {
         // before saving the filename, the uploaded file should be uploaded to cloudinary
         // the public id of that file will be stored in the database as imageFilename
+        $catName = strtolower(str_replace('&','-',str_replace(' ','-',$entityInstance->getCategory()->getName())));
         $uploadedFile = \Cloudinary\Uploader::unsigned_upload($entityInstance->getImageFile(),'xt0x0u4t',[
             'cloud_name' => 'hwnrajpbq',
-            // 'folder'=>'events'
+            'folder'=>'events/'.$catName
         ]);
         $entityInstance
             ->setImageFilename($uploadedFile['public_id'])
@@ -47,14 +48,16 @@ class EventCrudController extends AbstractCrudController
 
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
+        $catName = strtolower(str_replace('&','-',str_replace(' ','-',$entityInstance->getCategory()->getName())));
         $uploadedFile = \Cloudinary\Uploader::unsigned_upload($entityInstance->getImageFile(),'xt0x0u4t',[
             'cloud_name' => 'hwnrajpbq',
-            // 'folder'=>'events'
+            'folder'=>'events/'.$catName
         ]);
         $entityInstance
             ->setImageFilename($uploadedFile['public_id'])
             ->setImageFile(null)
         ;
+        $this->addFlash('success',$entityInstance->getImageFilename());
         $entityManager->persist($entityInstance);
         $entityManager->flush();
     }
