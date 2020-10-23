@@ -40,12 +40,12 @@ class Event
     /**
      * @ORM\Column(type="datetime")
      */
-    private $start;
+    private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $end;
+    private $endDate;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -125,30 +125,6 @@ class Event
     public function setVenue(string $venue): self
     {
         $this->venue = $venue;
-
-        return $this;
-    }
-
-    public function getStart(): ?\DateTimeInterface
-    {
-        return $this->start;
-    }
-
-    public function setStart(\DateTimeInterface $start): self
-    {
-        $this->start = $start;
-
-        return $this;
-    }
-
-    public function getEnd(): ?\DateTimeInterface
-    {
-        return $this->end;
-    }
-
-    public function setEnd(\DateTimeInterface $end): self
-    {
-        $this->end = $end;
 
         return $this;
     }
@@ -253,6 +229,30 @@ class Event
     public function setImageFilename(string $imageFilename): self
     {
         $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(\DateTimeInterface $startDate): self
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(\DateTimeInterface $endDate): self
+    {
+        $this->endDate = $endDate;
 
         return $this;
     }

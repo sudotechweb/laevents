@@ -22,8 +22,8 @@
                 {# <p class="d-none d-md-block card-text">{{ desc|raw }}</p> #}
                 <div class="list-group list-group-flush card-text">
                     <p class="list-group-item mb-0">{{ event.venue }}</p>
-                    <p class="list-group-item mb-0">{{ event.start ? event.start|date('F j Y') : '' }}</p>
-                    <p class="list-group-item mb-0">{{ event.end ? event.end|date('F j Y') : '' }}</p>
+                    <p class="list-group-item mb-0">{{ event.startDate ? event.startDate|date('F j Y') : '' }}</p>
+                    <p class="list-group-item mb-0">{{ event.endDate ? event.endDate|date('F j Y') : '' }}</p>
                 </div>
                 {% if event.category %}
                     {# <a href="{{path('category_show',{id:event.category.id})}}"> #}

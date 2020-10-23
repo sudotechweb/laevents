@@ -12,7 +12,7 @@
                             {{ relatedEvent.title }}
                             </a>
                         </p>
-                        <p class="card-text">{{ relatedEvent.venue }}. {{ relatedEvent.start ? relatedEvent.start|date('F j Y') : '' }} to {{ relatedEvent.end ? relatedEvent.end|date('F j Y') : '' }}</p>
+                        <p class="card-text">{{ relatedEvent.venue }}. {{ relatedEvent.startDate ? relatedEvent.startDate|date('F j Y') : '' }} to {{ relatedEvent.endDate ? relatedEvent.endDate|date('F j Y') : '' }}</p>
                         {% if relatedEvent.category %}
                             <a href="{{path('category_show',{id:event.category.id})}}">
                                 <span class='badge badge-dark p-2 badge-sm float-right'>{{ relatedEvent.category }}</span>

@@ -18,8 +18,8 @@
                         <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">venue: </span>{{ event.venue }}</p>
                         <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">category: </span>{{ event.category }}</p>
                         <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">association: </span>{{ event.association }}</p>
-                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">start: </span>{{ event.start ? event.start|date('Y-m-d') : '' }}</p>
-                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">end: </span>{{ event.end ? event.end|date('Y-m-d') : '' }}</p>
+                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">start: </span>{{ event.startDate ? event.startDate|date('Y-m-d') : '' }}</p>
+                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">end: </span>{{ event.endDate ? event.endDate|date('Y-m-d') : '' }}</p>
                     </div>
                 </div>
                 <a class="card-footer bg-warning btn btn-sm btn-warning" href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
