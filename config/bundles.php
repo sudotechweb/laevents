@@ -17,4 +17,5 @@ return [
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
     Speicher210\CloudinaryBundle\Speicher210CloudinaryBundle::class => ['all' => true],
+    Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];
