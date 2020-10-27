@@ -1,13 +1,18 @@
 <div class="bg-dark text-light">
-    <nav class="navbar navbar-expand-md navbar-light">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{path('home')}}"><img src="{{asset('favicon.ico')}}" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
             {{ knp_menu_render('main', {
                 'currentClass': 'active',
             })}}
             {% set adminUrl = ea_url()
                 .setController('App\\Controller\\Admin\\EventCrudController')
              %}
-            <a class="nav-link" href="{{adminUrl}}">Admin</a>
+            <a class="btn btn-outline-secondary nav-link" href="{{adminUrl}}">Admin</a>
         </div>
     </nav>
 </div>

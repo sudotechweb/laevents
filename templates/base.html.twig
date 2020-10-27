@@ -4,9 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %} | Lae Events</title>
+        {{ encore_entry_link_tags('styles') }}
         {# <link rel="stylesheet" href="/css/bootstrap.min.css"> #}
-        <link rel="stylesheet" href="/css/bootstrap.css">
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        {# <link rel="stylesheet" href="/css/bootstrap.css"> #}
+        {# <link rel="stylesheet" href="/css/bootstrap.min.css"> #}
         {# <link rel="stylesheet" href="/css/mdb.min.css"> #}
         <link rel="stylesheet" href="/css/style.css">
         {% block stylesheets %}{% endblock %}
@@ -16,9 +17,11 @@
         <div class="container">
             {% block body %}{% endblock %}
         </div>
-        <script src="/js/jquery.min.js"></script>
+        {% include "generic/footer.html.twig" %}
+        {# <script src="/js/jquery.min.js"></script> #}
         {# <script src="/js/mdb.min.js"></script> #}
-        <script src="/js/bootstrap.min.js"></script>
+        {# <script src="/js/bootstrap.min.js"></script> #}
+        {{ encore_entry_script_tags('app') }}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
