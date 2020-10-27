@@ -31,6 +31,7 @@ Encore
         './assets/lib/bootstrap/css/bootstrap-grid.css',
         './assets/lib/bootstrap/css/bootstrap-reboot.css',
         './assets/lib/bootstrap/css/bootstrap.css',    
+        './assets/styles/my-styles.css',    
     ])
     .addEntry('featherlight', [
         './assets/lib/featherlight/featherlight.min.js',

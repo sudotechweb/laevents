@@ -3,7 +3,7 @@
 {% block title %}Upcoming Events{% endblock %}
 
 {% block body %}
-    {% include "generic/page-header.html.twig" with { pagetitle: 'Upcoming Events' } %}
+    {% include "generic/page-header.html.twig" with { pagetitle: 'Upcoming Events', subtitle: 'Cards in a Masonary layout with all events sorted by their published date in ascending order' } %}
     <div class="row">
         {% include "event/snippets/summary.html.twig" with {
             events: events

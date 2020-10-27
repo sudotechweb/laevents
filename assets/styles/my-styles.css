@@ -1,0 +1,39 @@
+.cropped-img{
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.card-columns {
+  /* // Small devices (landscape phones, 576px and up) */
+  @media (min-width: 576px) { 
+    column-count: 1;
+  }
+  /* // Medium devices (tablets, 768px and up) */
+  @media (min-width: 768px) { 
+    column-count: 2;
+  }
+  /* // Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) { 
+    column-count: 4;
+  }
+  /* // Extra large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) { 
+    column-count: 4;
+  }
+  
+  @media(min-width: 576px) {
+    column-count: 4;
+  }
+  @media(min-width: ) {
+    column-count: 2;
+  }
+  @include media-breakpoint-only(md) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 4;
+  }
+
+}

@@ -1,0 +1,21 @@
+    {% for key, category in events %}
+        {% if category is not empty %}
+            <div class="row">
+                <div class="col mb-2 py-1 bg-dark text-light">
+                    <span class="lead">{{key}}</span>
+                </div>
+            </div>
+                <div class="card-columns">
+                    {% for event in category %}
+                        <div class="card">
+                            <img class="card-img-top" src="{{ cloudinary_url(event.imageFilename)}}" alt="{{event.title~'~'~event.imageFilename}}">
+                            <div class="card-body p-2">
+                                <h4 class="card-title small"><a href="{{path('event_show',{id: event.id})}}">{{ event.title }}</a></h4>
+                                <p class="card-text text-muted small">A {{ event.startDate.diff(event.endDate)|date }} event starting on {{ event.startDate|date('F j Y') }}. {{event.venue}} is the venue for this event.</p>
+                                <span class="badge badge-pill badge-warning">{{event.startDate > date() ? 'Expired' : null}}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+        {% endif %}
+    {% endfor %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\EventType;
+use App\Repository\AssociationRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\EventRepository;
 use App\Service\FileUploader;
@@ -24,6 +25,56 @@ class EventController extends AbstractController
     {
         return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findBy(['publish'=>true]),
+        ]);
+    }
+
+    /**
+     * @Route("/category", name="event_category_index", methods={"GET"})
+     */
+    public function category(EventRepository $eventRepository, CategoryRepository $categoryRepository): Response
+    {
+        $events = $eventRepository->findBy(['publish'=>true]);
+        $categories = $categoryRepository->findAll();
+        $eArray = [];
+        foreach ($categories as $cat) {
+            $catName = $cat->getName();
+            $eArray[$catName] = [];
+            foreach ($events as $event) {
+                if ($event->getCategory()->getName() === $catName) {
+                    // var_dump($event->getCategory()->getName());// exit;
+                    // $eArray = $event;
+                    array_push($eArray[$catName], $event);
+                }
+            }
+        }
+        // exit;
+        return $this->render('event/index.topics.html.twig', [
+            'events' => $eArray,
+        ]);
+    }
+
+    /**
+     * @Route("/association", name="event_association_index", methods={"GET"})
+     */
+    public function association(EventRepository $eventRepository, AssociationRepository $associationRepository): Response
+    {
+        $events = $eventRepository->findBy(['publish'=>true]);
+        $assocs = $associationRepository->findAll();
+        $eArray = [];
+        foreach ($assocs as $assoc) {
+            $assocName = $assoc->getName();
+            $eArray[$assocName] = [];
+            foreach ($events as $event) {
+                if ($event->getAssociation()->getName() === $assocName) {
+                    // var_dump($event->getCategory()->getName());// exit;
+                    // $eArray = $event;
+                    array_push($eArray[$assocName], $event);
+                }
+            }
+        }
+        // exit;
+        return $this->render('event/index.associations.html.twig', [
+            'events' => $eArray,
         ]);
     }
 

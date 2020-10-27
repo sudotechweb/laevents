@@ -47,7 +47,7 @@ class MenuBuilder {
             ],
         ]);
         $menu->addChild('Categories', [
-            'route'=>'category_index',
+            'route'=>'event_category_index',
             'attributes' => [
                 'class' => 'nav-item nav'
             ],
@@ -59,7 +59,7 @@ class MenuBuilder {
             ],
         ]);
         $menu->addChild('Associations', [
-            'route'=>'association_index',
+            'route'=>'event_association_index',
             'attributes' => [
                 'class' => 'nav-item nav'
             ],

@@ -38,12 +38,12 @@ class Event
     private $venue;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $startDate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $endDate;
 
@@ -77,6 +77,11 @@ class Event
      * @var File|null
      */
     private $imageFile;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $featured;
 
     public function __construct()
     {
@@ -253,6 +258,18 @@ class Event
     public function setEndDate(\DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    public function getFeatured(): ?bool
+    {
+        return $this->featured;
+    }
+
+    public function setFeatured(?bool $featured): self
+    {
+        $this->featured = $featured;
 
         return $this;
     }

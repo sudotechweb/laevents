@@ -5,26 +5,29 @@
             {% if (event.imageFilename) %}
                 {# <img class="img-fluid" src="{{asset('uploads/images/' ~ event.imageFilename) }}" class="img-fluid" alt=""> #}
                 {# <img class="img-fluid" src="{{vich_uploader_asset(event) }}" class="img-fluid" alt=""> #}
-                <img class="img-fluid" src="{{cloudinary_url(event.imageFilename,{'width': 300}) }}" class="img-fluid" alt="">
+                <img class="img-fluid" src="{{cloudinary_url(event.imageFilename,{'width': 300}) }}" alt="{{event.title ~ ' ' ~ event.imageFilename}}">
             {% endif %}
-            <div class="card-body">
-                <h4 class="card-title">
+            <div class="card-body p-2">
+                <h4 class="small">
                     <a class="lead" href="{{ path('event_show', {'id': event.id}) }}">
                     {{ event.title }}
                     </a>
                 </h4>
                 {% set desc = '' %}
-                {% if event.description|length > 200 %}
+                {# {% if event.description|length > 200 %}
                     {% set desc = event.description|slice(0,200) %}
                 {% else %}
                     {% set desc = event.description %}
-                {% endif %}
+                {% endif %} #}
                 {# <p class="d-none d-md-block card-text">{{ desc|raw }}</p> #}
-                <div class="list-group list-group-flush card-text">
+                {# <div class="list-group list-group-flush card-text">
                     <p class="list-group-item mb-0">{{ event.venue }}</p>
                     <p class="list-group-item mb-0">{{ event.startDate ? event.startDate|date('F j Y') : '' }}</p>
                     <p class="list-group-item mb-0">{{ event.endDate ? event.endDate|date('F j Y') : '' }}</p>
-                </div>
+                </div> #}
+                {# <h4 class="card-title small"><a href="{{path('event_show',{id: event.id})}}">{{ event.title }}</a></h4> #}
+                <p class="card-text text-muted small">A {{ event.startDate.diff(event.endDate)|date }} event starting on {{ event.startDate|date('F j Y') }}. {{event.venue}} is the venue for this event.</p>
+                <span class="badge badge-pill badge-warning">{{event.startDate > date() ? 'Expired' : null}}</span>
                 {% if event.category %}
                     {# <a href="{{path('category_show',{id:event.category.id})}}"> #}
                         <p class='badge badge-pill p-2 text-light text-sm float-right' style="background: {{event.category ? event.category.color }};">{{ event.category }}</p>

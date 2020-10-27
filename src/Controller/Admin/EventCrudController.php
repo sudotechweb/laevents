@@ -80,6 +80,7 @@ class EventCrudController extends AbstractCrudController
         $startDate = DateField::new('startDate');
         $endDate = DateField::new('endDate');
         $publish = BooleanField::new('publish');
+        $featured = BooleanField::new('featured');
         $category = AssociationField::new('category');
         $eventDates = AssociationField::new('eventDates');
         $association = AssociationField::new('association');
@@ -94,9 +95,9 @@ class EventCrudController extends AbstractCrudController
         ;
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $title, $venue, $startDate, $endDate, $association];
+            return [$id, $title, $publish, $featured, $venue, $startDate, $endDate, $association];
         } else if (Crud::PAGE_NEW === $pageName || Crud::PAGE_EDIT === $pageName) {
-            return [$imageFile, $title, $description, $venue, $startDate, $endDate, $publish, $category, $eventDates, $association];
+            return [$imageFile, $title, $description, $venue, $startDate, $endDate, $publish, $featured, $category, $eventDates, $association];
         }
     }
 }
