@@ -23,8 +23,15 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/app.js')
-    //.addEntry('page1', './assets/page1.js')
+    .addEntry('app', [
+        './assets/app.js',
+        './public/build/bootstrap/js/bootstrap.bundle.js',
+    ])
+    .addEntry('styles', [
+        './public/build/bootstrap/css/bootstrap-grid.css',
+        './public/build/bootstrap/css/bootstrap-reboot.css',
+        './public/build/bootstrap/css/bootstrap.css',    
+    ])
     //.addEntry('page2', './assets/page2.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -69,6 +76,13 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/admin.js')
+
+    .copyFiles([
+        {from: './node_modules/bootstrap/dist/js', to: 'bootstrap/js/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+        // {from: './node_modules/bootstrap/dist/css', to: 'bootstrap/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+        {from: './node_modules/bootswatch/dist/united', to: 'bootstrap/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+        {from: './node_modules/featherlight/release', to: 'featherlight/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+    ])
 ;
 
 module.exports = Encore.getWebpackConfig();

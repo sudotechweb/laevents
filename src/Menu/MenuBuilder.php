@@ -21,7 +21,7 @@ class MenuBuilder {
             'attribute' => ['class' => 'test'],
         ];
         $menu = $this->factory->createItem('root');
-        $menu->setChildrenAttributes(['class' => 'nav justify-content-center mr-auto mt-2 mt-lg-0']);
+        $menu->setChildrenAttributes(['class' => 'navbar-nav justify-content-center mr-auto mt-2 mt-lg-0']);
         $menu->addChild('Home', [
             'route'=>'home',
             'attributes' => [
