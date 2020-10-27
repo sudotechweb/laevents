@@ -25,14 +25,19 @@ Encore
      */
     .addEntry('app', [
         './assets/app.js',
-        './public/build/bootstrap/js/bootstrap.bundle.js',
+        './assets/lib/bootstrap/js/bootstrap.bundle.js',
     ])
     .addEntry('styles', [
-        './public/build/bootstrap/css/bootstrap-grid.css',
-        './public/build/bootstrap/css/bootstrap-reboot.css',
-        './public/build/bootstrap/css/bootstrap.css',    
+        './assets/lib/bootstrap/css/bootstrap-grid.css',
+        './assets/lib/bootstrap/css/bootstrap-reboot.css',
+        './assets/lib/bootstrap/css/bootstrap.css',    
     ])
-    //.addEntry('page2', './assets/page2.js')
+    .addEntry('featherlight', [
+        './assets/lib/featherlight/featherlight.min.js',
+        './assets/lib/featherlight/featherlight.min.css',
+        './assets/lib/featherlight/featherlight.gallery.min.js',
+        './assets/lib/featherlight/featherlight.gallery.min.css',
+    ])
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -77,12 +82,12 @@ Encore
     //.enableReactPreset()
     //.addEntry('admin', './assets/admin.js')
 
-    .copyFiles([
-        {from: './node_modules/bootstrap/dist/js', to: 'bootstrap/js/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
-        // {from: './node_modules/bootstrap/dist/css', to: 'bootstrap/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
-        {from: './node_modules/bootswatch/dist/united', to: 'bootstrap/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
-        {from: './node_modules/featherlight/release', to: 'featherlight/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
-    ])
+    // .copyFiles([
+    //     {from: './node_modules/bootstrap/dist/js', to: 'bootstrap/js/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+    //     {from: './node_modules/bootstrap/dist/css', to: 'bootstrap/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+    //     {from: './node_modules/bootswatch/dist/united', to: 'bootstrap/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+    //     {from: './node_modules/featherlight/release', to: 'featherlight/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+    // ])
 ;
 
 module.exports = Encore.getWebpackConfig();
