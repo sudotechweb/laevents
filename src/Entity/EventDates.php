@@ -32,6 +32,11 @@ class EventDates
      */
     private $event;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $allday;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class EventDates
     public function setEvent(?Event $event): self
     {
         $this->event = $event;
+
+        return $this;
+    }
+
+    public function getAllday(): ?bool
+    {
+        return $this->allday;
+    }
+
+    public function setAllday(?bool $allday): self
+    {
+        $this->allday = $allday;
 
         return $this;
     }

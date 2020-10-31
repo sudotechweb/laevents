@@ -1,11 +1,11 @@
-<div class="card-columns col-md-9 no-gutters">
+<div class="card-columns no-gutters">
     {% for event in events %}
     {# <div class="col-sm-6"> #}
         <div class="card">
             {% if (event.imageFilename) %}
                 {# <img class="img-fluid" src="{{asset('uploads/images/' ~ event.imageFilename) }}" class="img-fluid" alt=""> #}
                 {# <img class="img-fluid" src="{{vich_uploader_asset(event) }}" class="img-fluid" alt=""> #}
-                <img class="img-fluid" src="{{cloudinary_url(event.imageFilename,{'width': 300}) }}" alt="{{event.title ~ ' ' ~ event.imageFilename}}">
+                <img class="img-fluid" src="{{cloudinary_url(event.imageFilename,{'width': 550}) }}" alt="{{event.title ~ ' ' ~ event.imageFilename}}">
             {% endif %}
             <div class="card-body p-2">
                 <h4 class="small">
