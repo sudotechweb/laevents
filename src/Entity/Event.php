@@ -38,16 +38,6 @@ class Event
     private $venue;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $startDate;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $endDate;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $publish;
@@ -234,30 +224,6 @@ class Event
     public function setImageFilename(string $imageFilename): self
     {
         $this->imageFilename = $imageFilename;
-
-        return $this;
-    }
-
-    public function getStartDate(): ?\DateTimeInterface
-    {
-        return $this->startDate;
-    }
-
-    public function setStartDate(\DateTimeInterface $startDate): self
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
-
-    public function getEndDate(): ?\DateTimeInterface
-    {
-        return $this->endDate;
-    }
-
-    public function setEndDate(\DateTimeInterface $endDate): self
-    {
-        $this->endDate = $endDate;
 
         return $this;
     }
