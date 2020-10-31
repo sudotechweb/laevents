@@ -3,16 +3,20 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Event;
+use App\Entity\EventDates;
+use App\Form\EventDateTimeType;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class EventCrudController extends AbstractCrudController
@@ -45,6 +49,9 @@ class EventCrudController extends AbstractCrudController
                 'folder'=>'events'
             ]);
         }
+        foreach ($entityInstance->getEventDates() as $date ) {
+            $entityManager->persist($date);
+        }
         $entityInstance
             ->setImageFilename($uploadedFile['public_id'])
             ->setImageFile(null)
@@ -67,6 +74,9 @@ class EventCrudController extends AbstractCrudController
             ;
             // $this->addFlash('success',$entityInstance->getImageFilename());
         }
+        foreach ($entityInstance->getEventDates() as $date ) {
+            $entityManager->persist($date);
+        }
         $entityManager->persist($entityInstance);
         $entityManager->flush();
     }
@@ -75,14 +85,15 @@ class EventCrudController extends AbstractCrudController
     {
         $id = IdField::new('id');
         $title = TextField::new('title');
-        $description = TextEditorField::new('description');
+        $description = TextEditorField::new('description','Details');
         $venue = TextField::new('venue');
-        $startDate = DateField::new('startDate');
-        $endDate = DateField::new('endDate');
         $publish = BooleanField::new('publish');
         $featured = BooleanField::new('featured');
         $category = AssociationField::new('category');
-        $eventDates = AssociationField::new('eventDates');
+        $eventDates = CollectionField::new('eventDates')
+            ->setEntryType(EventDateTimeType::class)
+            ->setFieldFqcn(EventDates::class)
+        ;
         $association = AssociationField::new('association');
         // $imageFilename = ImageField::new('imageFilename')
         //     -> onlyOnIndex()
@@ -95,9 +106,9 @@ class EventCrudController extends AbstractCrudController
         ;
 
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$id, $title, $publish, $featured, $venue, $startDate, $endDate, $association];
+            return [$id, $title, $publish, $featured, $venue, $association];
         } else if (Crud::PAGE_NEW === $pageName || Crud::PAGE_EDIT === $pageName) {
-            return [$imageFile, $title, $description, $venue, $startDate, $endDate, $publish, $featured, $category, $eventDates, $association];
+            return [$imageFile, $title, $description, $eventDates, $venue, $publish, $featured, $category, $association];
         }
     }
 }
