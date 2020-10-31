@@ -9,15 +9,22 @@
                 <div class="row">
                     <div class="col text-center">
                         <div style="background: #343a4073;" class="p-1 px-3">
-                            <p class="h1 display-1 text-light">Lae What's On</p>
-                            <p class="text-primary">get the latest news and events happening in and around lae city</p>
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="{{asset('img/logo.png')}}" alt="logo" class="img-fluid">
+                                </div>
+                                <div class="col-6">
+                                    <p class="h1 display-1 text-light">Lae city UP?!</p>
+                                    <p class="text-primary">get the latest events that are happening in and around our beautiful lae city in one place...</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <a href="#menu-nav" class="btn float-right btn-primary rounded-circle" style="position: absolute; bottom: 2rem; left: 4rem;">V</a>
+    <a id="scrollToContent" href="#menu-nav" class="btn float-right btn-primary rounded-circle" style="position: absolute; bottom: 2rem; left: 4rem;">V</a>
 {% endblock %}
 
 {% block body %}
