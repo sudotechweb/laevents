@@ -1,79 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home {{parent()}}{% endblock %}
+{% block title %}Home{% endblock %}
 
-{% block body %}
-    {% if app.user %}
-        <div class="jumbotron">
-            <h1 class="display-3">Welcome</h1>
-            <p class="lead">We got all Lae Events right here in one place!</p>
-            <hr class="my-2">
-            <p>More info</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="{{('event_index')}}" role="button">View All Events</a>
-            </p>
-        </div>
-    {% else %}
-    <div class="container">
-        <div class="row">
-            <div class="col-3"></div>
-            {% if app.user %}
-            <div class="col-6 text-center">
-                <form method="POST">
-                    <fieldset class="form-group row">
-                        <legend class="col-form-legend col-sm-1-12 h1 diplay-1">Login</legend>
-                        <div class="col-sm-1-12">
-                            <div class="form-group row">
-                                <label for="email" class="col-3 text-right">email</label>
-                                <div class="col-9">
-                                    <input type="email" class="form-control" name="email" id="email-input" aria-describedby="helpId" placeholder="someone@domain.com">
-                                    <!-- <small id="helpId" class="form-text text-muted">type in your email address to sign-in</small> -->
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="password" class="col-3 text-right">password</label>
-                                <div class="col-9">
-                                    <input type="text" name="password" id="password" class="form-control" placeholder="**************" aria-describedby="helpId">
-                                    <!-- <small id="helpId" class="text-muted">type in your password</small> -->
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Login</button>
+{% block hero %}
+    <div style="background-image: url('{{cloudinary_url("samples/animals/three-dogs.jpg")}}'); background-position: top; background-repeat: no-repeat; background-size: cover;" class="v-100 w-100 vh-100 d-sm-none d-md-block">
+        <div class="container">
+            <div class="" style="position: absolute; top: 1rem; left: 1rem;">
+                <div class="row">
+                    <div class="col text-center">
+                        <div style="background: #343a4073;" class="p-1 px-3">
+                            <p class="h1 display-1 text-light">Lae What's On</p>
+                            <p class="text-primary">get the latest news and events happening in and around lae city</p>
                         </div>
                     </div>
-                </form>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-    {% endif %}
-    <div class="row">
-        <div class="col">
-            <p>{{test|json_encode}}</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="card-columns">
-            {% for event in events %}
-            <div class="card">
-                <img class="card-img-top" src="holder.js/100x180/" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">{{event.title}}</h4>
-                    <p class="card-text">{{event.description}}</p>
-                    <p class="card-text">{{event.venue}}</p>
-                    <p class="text-sm text-muted">{#{event|json_encode}#}</p>
-                 </div>
-                <div class="card-footer text-muted">
-                    <span>{{event.Start}}, </span>
-                    <span>{{event.End}}</span>
                 </div>
             </div>
-            {% endfor %}
         </div>
-        <div class="col">
-        </div>
+    </div>
+    <a href="#menu-nav" class="btn float-right btn-primary rounded-circle" style="position: absolute; bottom: 2rem; left: 4rem;">V</a>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% include "event/snippets/summary.html.twig" %}
     </div>
 {% endblock %}
