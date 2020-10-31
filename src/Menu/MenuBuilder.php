@@ -70,6 +70,30 @@ class MenuBuilder {
                 'class' => 'nav-link'
             ],
         ]);
+        $menu->addChild('Contact Us', [
+            'route'=>'contact',
+            'attributes' => [
+                'class' => 'nav-item nav'
+            ],
+            'childrenAttributes' => [
+                'class' => 'nav-item'
+            ],
+            'linkAttributes' => [
+                'class' => 'nav-link'
+            ],
+        ]);
+        $menu->addChild('About Us', [
+            'route'=>'about',
+            'attributes' => [
+                'class' => 'nav-item nav'
+            ],
+            'childrenAttributes' => [
+                'class' => 'nav-item'
+            ],
+            'linkAttributes' => [
+                'class' => 'nav-link'
+            ],
+        ]);
         return $menu;
     }
 }
