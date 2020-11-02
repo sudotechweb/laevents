@@ -15,9 +15,11 @@
     },
     "dependencies": {
         "bootstrap": "^4.5.3",
+        "bootstrap-calendar": "^0.2.4",
         "bootswatch": "^4.5.3",
         "featherlight": "^1.7.14",
         "jquery": "^3.5.1",
-        "popper.js": "^1.16.1"
+        "popper.js": "^1.16.1",
+        "underscore": "^1.11.0"
     }
 }

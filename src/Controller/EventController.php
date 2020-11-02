@@ -9,6 +9,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\EventRepository;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +27,25 @@ class EventController extends AbstractController
         return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findBy(['publish'=>true]),
         ]);
+    }
+
+    /**
+     * @Route("/api", name="json_api")
+     */
+    public function jsonAPI(EventRepository $eventRepository)
+    {
+        $export = [];
+        foreach ($eventRepository->findAll() as $event) {
+            array_push($export,[
+                'id' => $event->getId(),
+                'title' => $event->getTitle(),
+                'url' => '#',
+                'class' => 'event-important',
+                'start' => $event->getEventDates()[0]->getStartDate(),
+                'end' => $event->getEventDates()[0]->getEndDate(),
+            ]);
+        }
+        return new JsonResponse($export);
     }
 
     /**
