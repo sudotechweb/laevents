@@ -1414,6 +1414,11 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
+bootstrap-calendar@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/bootstrap-calendar/-/bootstrap-calendar-0.2.4.tgz#4af891a0f20fdf03a86f2ebfbf867f3dc92cee6e"
+  integrity sha1-SviRoPIP3wOoby6/v4Z/Pcks7m4=
+
 bootstrap@^4.5.3:
   version "4.5.3"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.3.tgz#c6a72b355aaf323920be800246a6e4ef30997fe6"
@@ -5920,6 +5925,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+underscore@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.11.0.tgz#dd7c23a195db34267186044649870ff1bab5929e"
+  integrity sha512-xY96SsN3NA461qIRKZ/+qox37YXPtSBswMGfiNptr+wrt6ds4HaMw23TP612fEyGekRE6LNRiLYr/aqbHXNedw==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
