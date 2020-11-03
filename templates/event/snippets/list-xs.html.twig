@@ -1,0 +1,5 @@
+<ul class="list-group list-group-flush">
+    {% for event in events %}
+        <a class="text-dark list-group-item list-group-item-action" href="{{path('event_show',{'id':event.id})}}" style="background: {{event.category ? event.category.color }}5a;">{{event}}</a>
+    {% endfor %}
+</ul>
