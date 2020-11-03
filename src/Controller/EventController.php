@@ -41,8 +41,8 @@ class EventController extends AbstractController
                 'title' => $event->getTitle(),
                 'url' => '#',
                 'class' => 'event-important',
-                'start' => $event->getEventDates()[0]->getStartDate(),
-                'end' => $event->getEventDates()[0]->getEndDate(),
+                'start' => date_timestamp_get($event->getEventDates()[0]->getStartDate()),
+                'end' => date_timestamp_get($event->getEventDates()[0]->getEndDate()),
             ]);
         }
         return new JsonResponse($export);

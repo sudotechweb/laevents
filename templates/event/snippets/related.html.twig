@@ -1,7 +1,7 @@
 <div class="row mb-3">
     <div class="col">
         <p class="h4">Events related by event category</p>
-        <div class="card-columns">
+        <div class="card-columns d-none d-md-block">
             {% for relatedEvent in relatedEvents %}
                 {% if relatedEvent.id is same as(event.id) %}
                 {% else %}
@@ -12,14 +12,14 @@
                             {{ relatedEvent.title }}
                             </a>
                         </p>
-                        <p class="card-text">{{ relatedEvent.venue }}. {{ startDate ? startDate|date('F j Y') : '' }} to {{ endDate ? endDate|date('F j Y') : '' }}</p>
-                        {% if relatedEvent.category %}
+                        {# <p class="card-text">{{ relatedEvent.venue }}. {{ startDate ? startDate|date('F j Y') : '' }} to {{ endDate ? endDate|date('F j Y') : '' }}</p> #}
+                        {# {% if relatedEvent.category %}
                             <a href="{{path('category_show',{id:event.category.id})}}">
                                 <span class='badge badge-dark p-2 badge-sm float-right'>{{ relatedEvent.category }}</span>
                             </a>
-                        {% endif %}
+                        {% endif %} #}
                     </div>
-                    <a class="card-footer bg-primary btn btn-block btn-info btn-sm" href="{{ path('event_show', {'id': relatedEvent.id}) }}">view details</a>
+                    {# <a class="card-footer bg-primary btn btn-block btn-info btn-sm" href="{{ path('event_show', {'id': relatedEvent.id}) }}">view details</a> #}
                 </div>
                 {% endif %}
             {% else %}
@@ -27,6 +27,9 @@
                     <p>no records found</p>
                 </div>
             {% endfor %}
+        </div>
+        <div class="d-block d-md-none">
+            {% include "event/snippets/list-xs.html.twig" with {'events': relatedEvents} %}
         </div>
     </div>
 </div>
