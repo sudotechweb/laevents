@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        {# {% include "generic/google-tag.prod.html.twig" %} #}
-        {% include "generic/google-tag.test.html.twig" %}
+        {% include "generic/google-tag.html.twig" %}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}{% endblock %} | Lae Events</title>
@@ -16,9 +15,6 @@
             {% block body %}{% endblock %}
         </div>
         {% include "generic/footer.html.twig" %}
-        {# <script src="/js/jquery.min.js"></script> #}
-        {# <script src="/js/mdb.min.js"></script> #}
-        {# <script src="/js/bootstrap.min.js"></script> #}
         {{ encore_entry_script_tags('app') }}
         {% block javascripts %}{% endblock %}
     </body>

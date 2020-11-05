@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-{{ encore_entry_link_tags('bootstrapcalendarcss') }}
+{# {{ encore_entry_link_tags('bootstrapcalendarcss') }} #}
 {% endblock %}
 
 {% block title %}Home{% endblock %}
 
 {# {% block hero %}
-    <div style="background-image: url('{{cloudinary_url("samples/animals/three-dogs.jpg")}}'); background-position: top; background-repeat: no-repeat; background-size: cover;" class="vh-25 d-none d-sm-none d-md-block d-lg-block d-xl-block">
+    <div style="background-image: url('{{cloudinary_url("samples/animals/three-dogs.jpg")}}'); background-position: top; background-repeat: no-repeat; background-size: cover;" class="vh-100 d-none d-sm-none d-md-block d-lg-block d-xl-block">
         <div class="container">
             <div class="" style="position: absolute; top: 1rem; left: 1rem;">
                 <div class="row">
@@ -33,7 +33,18 @@
 
 {% block body %}
     <div class="row">
-        {% include "event/snippets/summary.html.twig" %}
+        <div class="col-12">
+            <p class="lead text-info">Upcoming Events</p>
+        </div>
+    </div>
+    <div class="row">
+        {% include "event/snippets/calendar.html.twig" %}
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="lead text-info">Events for Next Month</p>
+        </div>
+        {% include "event/snippets/summary.html.twig" with {events: nextMonthEvents} %}
     </div>
 {% endblock %}
 {% block javascripts %}

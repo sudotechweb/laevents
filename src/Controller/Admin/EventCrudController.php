@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Event;
 use App\Entity\EventDates;
 use App\Form\EventDateTimeType;
+use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -50,6 +52,7 @@ class EventCrudController extends AbstractCrudController
             ]);
         }
         foreach ($entityInstance->getEventDates() as $date ) {
+            $date = $this->setDateTimeForEvent($date);
             $entityManager->persist($date);
         }
         $entityInstance
@@ -75,10 +78,29 @@ class EventCrudController extends AbstractCrudController
             // $this->addFlash('success',$entityInstance->getImageFilename());
         }
         foreach ($entityInstance->getEventDates() as $date ) {
+            $date = $this->setDateTimeForEvent($date);
             $entityManager->persist($date);
         }
         $entityManager->persist($entityInstance);
         $entityManager->flush();
+    }
+
+    private function setDateTimeForEvent($date)
+    {
+        if ($date->getAllday()) {
+            $date
+                ->setStartingTime(new DateTime($date->getEventDate()->format('y-m-d 0800'), new DateTimeZone('Pacific/Port_Moresby')))
+                ->setEndingTime(new DateTime($date->getEventDate()->format('y-m-d 1700'), new DateTimeZone('Pacific/Port_Moresby')))
+            ;
+        } else {
+            $startTime = $date->getStartingTime()->format('H:i:s');
+            $endTime = $date->getEndingTime()->format('H:i:s');
+            $date
+                ->setStartingTime(new DateTime($date->getEventDate()->format('y-m-d ').$startTime, new DateTimeZone('Pacific/Port_Moresby')))
+                ->setEndingTime(new DateTime($date->getEventDate()->format('y-m-d ').$endTime, new DateTimeZone('Pacific/Port_Moresby')))
+            ;
+        }
+        return $date;
     }
 
     public function configureFields(string $pageName): iterable
@@ -93,6 +115,7 @@ class EventCrudController extends AbstractCrudController
         $eventDates = CollectionField::new('eventDates')
             ->setEntryType(EventDateTimeType::class)
             ->setFieldFqcn(EventDates::class)
+            ->setRequired(false)
         ;
         $association = AssociationField::new('association');
         // $imageFilename = ImageField::new('imageFilename')

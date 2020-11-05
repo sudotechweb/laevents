@@ -20,60 +20,65 @@ class EventDates
     /**
      * @ORM\Column(type="datetime")
      */
-    private $startDate;
+    private $eventDate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $endDate;
+    private $startingTime;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="eventDates")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $event;
+    private $endingTime;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $allday;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="eventDates")
+     */
+    private $event;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getStartDate(): ?\DateTimeInterface
+    public function getEventDate(): ?\DateTimeInterface
     {
-        return $this->startDate;
+        return $this->eventDate;
     }
 
-    public function setStartDate(\DateTimeInterface $startDate): self
+    public function setEventDate(\DateTimeInterface $eventDate): self
     {
-        $this->startDate = $startDate;
+        $this->eventDate = $eventDate;
 
         return $this;
     }
 
-    public function getEndDate(): ?\DateTimeInterface
+    public function getStartingTime()
     {
-        return $this->endDate;
+        return $this->startingTime;
     }
 
-    public function setEndDate(\DateTimeInterface $endDate): self
+    public function setStartingTime( $startingTime): self
     {
-        $this->endDate = $endDate;
+        $this->startingTime = $startingTime;
 
         return $this;
     }
 
-    public function getEvent(): ?Event
+    public function getEndingTime()
     {
-        return $this->event;
+        return $this->endingTime;
     }
 
-    public function setEvent(?Event $event): self
+    public function setEndingTime( $endingTime): self
     {
-        $this->event = $event;
+        $this->endingTime = $endingTime;
 
         return $this;
     }
@@ -86,6 +91,18 @@ class EventDates
     public function setAllday(?bool $allday): self
     {
         $this->allday = $allday;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }

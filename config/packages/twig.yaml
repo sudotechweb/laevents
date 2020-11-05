@@ -3,3 +3,5 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     exception_controller: null
+    globals:
+        ga_tracking_code: "%env(GA_TRACKING)%"  # G-B9MMHB93ZG

@@ -1,4 +1,5 @@
 <div class="card-columns d-none d-md-block">
+    {% set time = "now"|date("U") %}
     {% for event in events %}
         <div class="card">
             {% if (event.imageFilename) %}
@@ -14,8 +15,9 @@
                 {% set endDate = date() %}
                 {% set allDayEvent = false %}
                 {% for date in event.eventDates %}
-                    {% set startDate = date.startDate %}
-                    {% set endDate = date.endDate %}
+                    {% set startDate = date.eventDate %}
+                    {% set time = date.eventDate %}
+                    {% set endDate = date.eventDate %}
                     {% set allDayEvent = date.allday %}
                 {% endfor %}
                 {% set dateDiff = startDate.diff(endDate)|date %}
