@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\EventDates;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,22 +20,26 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    // /**
-    //  * @return Event[] Returns an array of Event objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Event[] Returns an array of Event objects
+     */
+    public function findByEventMonth($value)
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
+            // ->andWhere('e. = :val')
+            // ->setParameter('val', $value)
+            ->where('d.eventDate > :startDate')
+            ->andWhere('d.eventDate <= :endDate')
+            ->setParameter('startDate',$value->format('y-m-'.'01'))
+            ->setParameter('endDate',$value->format('y-m-'.'31'))
+            // ->join('event_dates', 'd', 'ON', 'd.event_id=e.id')
+            ->join('e.eventDates', 'd')
             ->orderBy('e.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Event

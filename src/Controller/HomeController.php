@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Repository\EventRepository;
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,10 +16,13 @@ class HomeController extends AbstractController
      */
     public function index(EventRepository $eventRepository)
     {
-        $eventsSortedMonthly = []; // @todo work on this one
+        $currentDate = new DateTime('now', new DateTimeZone('Pacific/Port_Moresby'));
+        $nextMonthDate = date_add(new DateTime('now'), new DateInterval('P1M'));
+        // $nextMonthDate === 13 ? $nextMonthDate = new DateTime($currentDate->format('y')+1.'-01-01', new DateTimeZone('Pacific/Port_Moresby'))
+        // dump($nextMonthDate); exit;
         return $this->render('home/index.html.twig', [
-            'events' => $eventRepository->findAll(),
-            'nextMonthEvents' => $eventRepository->findAll(),
+            'events' => $eventRepository->findByEventMonth($currentDate),
+            'nextMonthEvents' => $eventRepository->findByEventMonth($nextMonthDate),
         ]);
     }
 

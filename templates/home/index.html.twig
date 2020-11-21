@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="row">
-        {% include "event/snippets/calendar.html.twig" %}
+        {% include "event/snippets/calendar.html.twig" with {events: events} %}
     </div>
     <div class="row">
         <div class="col-12">
