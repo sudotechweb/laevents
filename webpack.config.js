@@ -95,9 +95,9 @@ Encore
         // {from: './node_modules/bootswatch/dist/united', to: 'bootstrap/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
         // {from: './node_modules/featherlight/release', to: 'featherlight/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
         {from: './node_modules/jquery/dist', to: '/jquery/js/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
-        {from: './node_modules/bootstrap-calendar/js', to: 'bootstrapcalendar/js/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: true},
-        {from: './node_modules/bootstrap-calendar/css', to: 'bootstrapcalendar/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: true},
-        {from: './node_modules/bootstrap-calendar/img', to: 'bootstrapcalendar/img/[path][name].[ext]', pattern: /\.(png)$/, includeSubdirectories: false},
+        {from: './node_modules/bootstrap-calendar/js', to: '/bootstrapcalendar/js/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: true},
+        {from: './node_modules/bootstrap-calendar/css', to: '/bootstrapcalendar/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: true},
+        {from: './node_modules/bootstrap-calendar/img', to: '/bootstrapcalendar/img/[path][name].[ext]', pattern: /\.(png)$/, includeSubdirectories: false},
     ])
 ;
 
