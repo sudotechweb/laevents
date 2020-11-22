@@ -1,4 +1,9 @@
 {
+    "version": "1.0.0",
+    "engines": {
+      "node": "12.x",
+      "yarn": "1.x"
+    },
     "devDependencies": {
         "@symfony/webpack-encore": "^0.30.0",
         "core-js": "^3.0.0",
