@@ -39,9 +39,9 @@ Encore
         './assets/lib/featherlight/featherlight.gallery.min.js',
         './assets/lib/featherlight/featherlight.gallery.min.css',
     ])
-    .addEntry('bootstrapcalendarcss', [
-        './public/build/bootstrapcalendar/css/calendar.css',
-    ])
+    // .addEntry('bootstrapcalendarcss', [
+    //     // './public/build/bootstrapcalendar/css/calendar.css',
+    // ])
     .addEntry('bootstrapcalendarjs', [
         './assets/lib/calendar/app.js',
     ])
@@ -96,7 +96,7 @@ Encore
         // {from: './node_modules/featherlight/release', to: 'featherlight/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
         {from: './node_modules/jquery/dist', to: '/jquery/js/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
         {from: './node_modules/bootstrap-calendar/js', to: '/bootstrapcalendar/js/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: true},
-        {from: './node_modules/bootstrap-calendar/css', to: '/bootstrapcalendar/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: true},
+        // {from: './node_modules/bootstrap-calendar/css', to: '/bootstrapcalendar/css/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: true},
         {from: './node_modules/bootstrap-calendar/img', to: '/bootstrapcalendar/img/[path][name].[ext]', pattern: /\.(png)$/, includeSubdirectories: false},
     ])
 ;
