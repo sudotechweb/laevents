@@ -34,18 +34,18 @@ class MenuBuilder {
                 'class' => 'nav-link'
             ],
         ]);
-        $menu->addChild('Events', [
-            'route'=>'event_index',
-            'attributes' => [
-                'class' => 'nav-item nav'
-            ],
-            'childrenAttributes' => [
-                'class' => 'nav-item'
-            ],
-            'linkAttributes' => [
-                'class' => 'nav-link'
-            ],
-        ]);
+        // $menu->addChild('Events', [
+        //     'route'=>'event_index',
+        //     'attributes' => [
+        //         'class' => 'nav-item nav'
+        //     ],
+        //     'childrenAttributes' => [
+        //         'class' => 'nav-item'
+        //     ],
+        //     'linkAttributes' => [
+        //         'class' => 'nav-link'
+        //     ],
+        // ]);
         $menu->addChild('Categories', [
             'route'=>'event_category_index',
             'attributes' => [

@@ -1,6 +1,6 @@
-const jQuery = require('jquery');
-const underscore = require('underscore');
-const calendar = require('bootstrap-calendar');
+import jQuery from 'jquery';
+import underscore from 'underscore';
+import calendar from 'bootstrap-calendar';
 
 jQuery(()=>{
     var cal = jQuery('#calendar').calendar({
@@ -18,7 +18,7 @@ jQuery(()=>{
         // ],
         // tmpl_path: './assets/lib/calendar/tmpls/'
     });
-    console.log(cal);
+    // console.log(cal);
 })
 
 // console.log(jQuery,underscore);

@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Event;
 use App\Entity\EventDates;
+use DateTime;
+use DateTimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -25,13 +27,17 @@ class EventRepository extends ServiceEntityRepository
      */
     public function findByEventMonth($value)
     {
+        $startDate = $value->format('Y-m-01');
+        $endDate = new DateTime($value->format('d-m-Y'), new DateTimeZone('Pacific/Port_Moresby'));
+        // dump($startDate, $endDate->format('t m Y')); exit;
         return $this->createQueryBuilder('e')
             // ->andWhere('e. = :val')
             // ->setParameter('val', $value)
-            ->where('d.eventDate > :startDate')
-            ->andWhere('d.eventDate <= :endDate')
-            ->setParameter('startDate',$value->format('y-m-'.'01'))
-            ->setParameter('endDate',$value->format('y-m-'.'31'))
+            ->where('e.publish = true')
+            ->andWhere('d.eventDate between :startDate and :endDate')
+            // ->andWhere('d.eventDate <= :endDate')
+            ->setParameter('startDate',$startDate)
+            ->setParameter('endDate',$endDate->format('Y-m-t'))
             // ->join('event_dates', 'd', 'ON', 'd.event_id=e.id')
             ->join('e.eventDates', 'd')
             ->orderBy('e.id', 'ASC')

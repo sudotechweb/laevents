@@ -8,6 +8,8 @@ use App\Repository\AssociationRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\EventRepository;
 use App\Service\FileUploader;
+use DateTime;
+use DateTimeZone;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,14 +37,14 @@ class EventController extends AbstractController
     public function jsonAPI(EventRepository $eventRepository)
     {
         $export = [];
-        foreach ($eventRepository->findAll() as $event) {
+        foreach ($eventRepository->findByEventMonth(new DateTime('now', new DateTimeZone('Pacific/Port_Moresby'))) as $event) {
             array_push($export,[
                 'id' => $event->getId(),
                 'title' => $event->getTitle(),
                 'url' => '#',
                 'class' => 'event-important',
-                'start' => date_timestamp_get($event->getEventDates()[0]->getStartDate()),
-                'end' => date_timestamp_get($event->getEventDates()[0]->getEndDate()),
+                'start' => date_timestamp_get($event->getEventDates()[0]->getEventDate()),
+                'end' => date_timestamp_get($event->getEventDates()[0]->getEventDate()),
             ]);
         }
         return new JsonResponse($export);

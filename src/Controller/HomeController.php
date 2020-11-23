@@ -17,11 +17,16 @@ class HomeController extends AbstractController
     public function index(EventRepository $eventRepository)
     {
         $currentDate = new DateTime('now', new DateTimeZone('Pacific/Port_Moresby'));
-        $nextMonthDate = date_add(new DateTime('now'), new DateInterval('P1M'));
+        $nextMonthDate = new DateTime('now', new DateTimeZone('Pacific/Port_Moresby'));
+        $nextMonthDate->modify('first day of next month');
+        $events = $eventRepository->findByEventMonth($currentDate);
+        // $events = $eventRepository->findBy(['id'=>11]);
         // $nextMonthDate === 13 ? $nextMonthDate = new DateTime($currentDate->format('y')+1.'-01-01', new DateTimeZone('Pacific/Port_Moresby'))
+        // dump($nextMonthDate->format('t F Y'),date('d M Y',strtotime('now'))); exit;
         // dump($nextMonthDate); exit;
+        // $nextMonthDate = $nextMonthDate->format('Y-m-d');
         return $this->render('home/index.html.twig', [
-            'events' => $eventRepository->findByEventMonth($currentDate),
+            'events' => $events,
             'nextMonthEvents' => $eventRepository->findByEventMonth($nextMonthDate),
         ]);
     }
