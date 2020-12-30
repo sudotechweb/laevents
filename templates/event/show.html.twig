@@ -15,7 +15,8 @@
     <div class="row mb-3">
         <div class="col-12">
             <div class="card" style="background: {{event.category ? event.category.color }}5a;">
-                <img class="img-fluid" src="{{cloudinary_url(event.imageFilename) }}" class="img-fluid" alt="">
+                {# <img class="img-fluid" src="{{ event.imageFilename ? cloudinary_url(event.imageFilename,{"width": 1200}) : '' }}" class="img-fluid" alt="{{event.imageFilename}}"> #}
+                <img class="img-fluid" src="cloudinary_url(event.imageFilename,{"width": 1200}" class="img-fluid" alt="{{event.imageFilename}}">
                 {# <img class="img-fluid" src="{{vich_uploader_asset(event) }}" class="img-fluid" alt=""> #}
                 {# <img class="card-img-top" src="{{asset('uploads/images/' ~ event.imageFilename) }}" class="img-fluid" alt=""> #}
                 <div class="card-body">
@@ -25,8 +26,8 @@
                     <p class="card-text">{{ event.description|raw }}</p>
                     <div class="row">
                         <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">venue: </span>{{ event.venue }}</p>
-                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">category: </span>{{ event.category }}</p>
-                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">association: </span>{{ event.association }}</p>
+                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">category: </span><a href="{{path('category_show',{id:event.category.id})}}">{{ event.category }}</a></p>
+                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">association: </span><a href="{{path('association_show',{id: event.association.id})}}">{{ event.association }}</a></p>
                         <p class="col-12">Event Dates</p>
                         <div class="col-12">
                             <div class="list-group list-group-flush">

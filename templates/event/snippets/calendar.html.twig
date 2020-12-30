@@ -17,8 +17,17 @@ $days = array(1=>array('Something on the first'),31=>array('Halloween'));
     <table class="table table-bordered table-responsive-sm">
         <thead>
             <tr>
-                <th colspan="7" class="cal-row-fluid cal-row-head">
-                    {{ time|date('F') }} Events
+                <th colspan="5" class="cal-row-fluid cal-row-head">
+                    {{ currentMonth is defined ? currentMonth|date('F Y') : time|date('F Y') }} Events
+                </th>
+                <th colspan="2" class="cal-row-fluid cal-row-head">
+                    <form action="{{path('monthly_view')}}" method="get" class="form-inline">
+                        <div class="input-group">
+                            <label for="monthly_view" class="input-group-prepend input-group-text">month:</label>
+                            <input class="form-control" type="month" name="monthly_view" id="monthlyView">
+                            <button type="submit" class="btn btn-primary input-group-append">Go</button>
+                        </div>
+                    </form>
                 </th>
             </tr>
             <tr>
@@ -42,13 +51,31 @@ $days = array(1=>array('Something on the first'),31=>array('Halloween'));
                 {% endif %}
                 <td class="cal-cell{{loop.index}} cal-cell">
                     <div>
-                        <div>{{ day }}</div>
+                        <div><span class="small">{{ day }}</span></div>
                         <div>
-                            <ul class="list-group list-group-flush">
+                            <ul class="list-inline">
+                                {# <h1>{{events|length}}</h1> #}
                                 {% for event in events %}
                                     {% for date in event.eventDates %}
                                         {% if date.eventDate|date('j') == day %}
-                                            <a class="small list-group-item list-group-item-action" href="{{path('event_show',{id: event.id})}}" style="background: {{event.category ? event.category.color }}5a;">{{ event.title }}</a>
+                                            {# <h1>{{dump(event)}}</h1> #}
+                                            <div class="list-inline-item" id="calAcc{{loop.index}}" role="tablist" aria-multiselectable="true">
+                                                <div class="card" style="background: {{event.category ? event.category.color }}5a;">
+                                                    <a data-toggle="collapse" data-parent="#calAcc{{loop.index}}" href="#section1Content{{event.id}}" aria-expanded="true" aria-controls="section1Content{{event.id}}">
+                                                        <div class="card-header" role="tab" id="section1Header{{event.id}}">
+                                                            <span class="mb-0">
+                                                                <i class="fa fa-circle-o" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                    <div id="section1Content{{event.id}}" class="collapse in" role="tabpanel" aria-labelledby="section1Header{{event.id}}">
+                                                        <div class="card-body bg-light">
+                                                            {# {{event.title}} #}
+                                                            <a class="small text-dark" href="{{path('event_show',{id: event.id})}}">{{ event.title|raw }}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         {% endif %}
                                     {% endfor %}
                                 {# {{ dump() }} #}

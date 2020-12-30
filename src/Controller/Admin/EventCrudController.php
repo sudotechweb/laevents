@@ -39,26 +39,28 @@ class EventCrudController extends AbstractCrudController
     {
         // before saving the filename, the uploaded file should be uploaded to cloudinary
         // the public id of that file will be stored in the database as imageFilename
-        if ($entityInstance->getCategory()) {
-            $catName = strtolower(str_replace('&','-',str_replace(' ','-',$entityInstance->getCategory()->getName())));
-            $uploadedFile = \Cloudinary\Uploader::unsigned_upload($entityInstance->getImageFile(),'xt0x0u4t',[
-                'cloud_name' => 'hwnrajpbq',
-                'folder'=>'events/'.$catName
-            ]);
-        } else {
-            $uploadedFile = \Cloudinary\Uploader::unsigned_upload($entityInstance->getImageFile(),'xt0x0u4t',[
-                'cloud_name' => 'hwnrajpbq',
-                'folder'=>'events'
-            ]);
+        if ($entityInstance->getImageFile()) {
+            if ($entityInstance->getCategory()) {
+                $catName = strtolower(str_replace('&','-',str_replace(' ','-',$entityInstance->getCategory()->getName())));
+                $uploadedFile = \Cloudinary\Uploader::unsigned_upload($entityInstance->getImageFile(),'xt0x0u4t',[
+                    'cloud_name' => 'hwnrajpbq',
+                    'folder'=>'events/'.$catName
+                ]);
+            } else {
+                $uploadedFile = \Cloudinary\Uploader::unsigned_upload($entityInstance->getImageFile(),'xt0x0u4t',[
+                    'cloud_name' => 'hwnrajpbq',
+                    'folder'=>'events'
+                ]);
+            }
+            $entityInstance
+                ->setImageFilename($uploadedFile['public_id'])
+                ->setImageFile(null)
+            ;
         }
         foreach ($entityInstance->getEventDates() as $date ) {
             $date = $this->setDateTimeForEvent($date);
             $entityManager->persist($date);
         }
-        $entityInstance
-            ->setImageFilename($uploadedFile['public_id'])
-            ->setImageFile(null)
-        ;
         $entityManager->persist($entityInstance);
         $entityManager->flush();
     }
@@ -125,7 +127,7 @@ class EventCrudController extends AbstractCrudController
         $imageFile = ImageField::new('imageFile')
             ->onlyOnForms()
             ->setFormType(VichImageType::class)
-            ->setRequired(false)
+            ->setRequired(true)
         ;
 
         if (Crud::PAGE_INDEX === $pageName) {

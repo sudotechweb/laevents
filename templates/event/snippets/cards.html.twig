@@ -1,0 +1,25 @@
+<div class="card-columns">
+    {% for event in events %}
+        {% set startDate = date() %}
+        {% set endDate = date() %}
+        {% set allDayEvent = false %}
+        {% set eventDurationHours = date() %}
+        {% for date in event.eventDates %}
+            {% set startDate = date.eventDate %}
+            {% set endDate = date.eventDate %}
+            {% set allDayEvent = date.allday %}
+            {% if allDayEvent %}
+                {% set eventDurationHours = date.startingTime.diff(date.endingTime) %}
+            {% endif %}
+        {% endfor %}
+        {% set dateDiff = startDate.diff(endDate)|date %}
+        <div class="card" style="background: linear-gradient({{event.category ? event.category.color }}5a 95%,{{event.category ? event.category.color }} 95%);">
+            <img class="card-img-top" src="{{ cloudinary_url(event.imageFilename)}}" alt="{{event.title~'~'~event.imageFilename}}">
+            <div class="card-body p-2">
+                <h4 class="card-title small"><a href="{{path('event_show',{id: event.id})}}">{{ event.title }}</a></h4>
+                <p class="card-text text-muted small">A {{ allDayEvent is not null ? 'full day' : eventDurationHours ~ ' hour' }} event starting on {{ startDate|date('F j Y') }}. {{event.venue}} is the venue for this event.</p>
+                <span class="badge badge-pill badge-danger float-right mb-2 py-2">{{startDate < date() ? 'expired' : null}}</span>
+            </div>
+        </div>
+    {% endfor %}
+</div>

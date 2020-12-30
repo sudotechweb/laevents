@@ -29,7 +29,7 @@ class EventRepository extends ServiceEntityRepository
     {
         $startDate = $value->format('Y-m-01');
         $endDate = new DateTime($value->format('d-m-Y'), new DateTimeZone('Pacific/Port_Moresby'));
-        // dump($startDate, $endDate->format('t m Y')); exit;
+        // dump($startDate, $endDate->format('Y-m-t')); exit;
         return $this->createQueryBuilder('e')
             // ->andWhere('e. = :val')
             // ->setParameter('val', $value)

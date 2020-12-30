@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Association;
 use App\Form\AssociationType;
 use App\Repository\AssociationRepository;
+use App\Repository\EventRepository;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,10 +58,12 @@ class AssociationController extends AbstractController
     /**
      * @Route("/{id}", name="association_show", methods={"GET"})
      */
-    public function show(Association $association): Response
+    public function show(Association $association, EventRepository $eventRepository): Response
     {
+        $events = $eventRepository->findBy(['publish'=>true, 'association'=>$association],['id'=>'desc']);
         return $this->render('association/show.html.twig', [
             'association' => $association,
+            'events' => $events,
         ]);
     }
 

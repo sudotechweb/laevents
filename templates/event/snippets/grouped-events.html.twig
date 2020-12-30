@@ -1,34 +1,31 @@
-    {% for key, category in events %}
-        {% if category is not empty %}
+{# <pre>
+    {{ dump(events) }}
+</pre> #}
+{% for eventItems in events %}
+    {% if eventItems is not empty %}
+        {% if eventItems.category is defined %}
+            {% set category = eventItems.category %}
             <div class="row">
-                <div class="col mb-2 py-1 bg-dark text-light">
-                    <span class="lead">{{key}}</span>
+                <div class="col mb-2 py-1 border-bottom">
+                    <button class="btn btn-block">
+                        <span class="float-left">{{category.name}}</span>
+                        <a class="badge badge-primary float-right" href="{{path('category_show', {id: category.id})}}">view all events</a>
+                    </button>
                 </div>
             </div>
-                <div class="card-columns">
-                    {% for event in category %}
-                        {% set startDate = date() %}
-                        {% set endDate = date() %}
-                        {% set allDayEvent = false %}
-                        {% set eventDurationHours = date() %}
-                        {% for date in event.eventDates %}
-                            {% set startDate = date.eventDate %}
-                            {% set endDate = date.eventDate %}
-                            {% set allDayEvent = date.allday %}
-                            {% if allDayEvent %}
-                                {% set eventDurationHours = date.startingTime.diff(date.endingTime) %}
-                            {% endif %}
-                        {% endfor %}
-                        {% set dateDiff = startDate.diff(endDate)|date %}
-                        <div class="card">
-                            <img class="card-img-top" src="{{ cloudinary_url(event.imageFilename)}}" alt="{{event.title~'~'~event.imageFilename}}">
-                            <div class="card-body p-2">
-                                <h4 class="card-title small"><a href="{{path('event_show',{id: event.id})}}">{{ event.title }}</a></h4>
-                                <p class="card-text text-muted small">A {{ allDayEvent is not null ? 'full day' : eventDurationHours ~ ' hour' }} event starting on {{ startDate|date('F j Y') }}. {{event.venue}} is the venue for this event.</p>
-                                <span class="badge badge-pill badge-warning">{{startDate < date() ? 'Expired' : null}}</span>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
         {% endif %}
-    {% endfor %}
+        {% if eventItems.association is defined %}
+            {% set association = eventItems.association %}
+            <div class="row">
+                <div class="col mb-2 py-1 border-bottom">
+                    <button class="btn btn-block">
+                        <span class="float-left">{{association.name}}</span>
+                        <a class="badge badge-primary float-right" href="{{path('association_show', {id: association.id})}}">view all events</a>
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+        {% set events = eventItems.events %}
+        {% include "event/snippets/cards.html.twig" %}
+    {% endif %}
+{% endfor %}

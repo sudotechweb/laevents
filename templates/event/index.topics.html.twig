@@ -3,6 +3,6 @@
 {% block title %}Upcoming Events{% endblock %}
 
 {% block body %}
-    {% include "generic/page-header.html.twig" with { pagetitle: 'Upcoming Events', subtitle: 'Cards in a Deck grouped by their category' } %}
+    {% include "generic/page-header.html.twig" with { pagetitle: 'Events sorted by category', subtitle: 'Event cards in a card deck grouped by their respective categories' } %}
     {% include "event/snippets/grouped-events.html.twig" with {events: events} %}
 {% endblock %}

@@ -55,23 +55,27 @@ class EventController extends AbstractController
      */
     public function category(EventRepository $eventRepository, CategoryRepository $categoryRepository): Response
     {
-        $events = $eventRepository->findBy(['publish'=>true]);
+        $events = $eventRepository->findBy(['publish'=>true],['id'=>'desc']);
         $categories = $categoryRepository->findAll();
-        $eArray = [];
+        $fArray = [];
         foreach ($categories as $cat) {
             $catName = $cat->getName();
-            $eArray[$catName] = [];
+            // catevents = [category,events]
+            $fArray[$catName]['category'] = $cat;
+            $fArray[$catName]['events'] = [];
+            $eventsCounter = 0;
             foreach ($events as $event) {
-                if ($event->getCategory()->getName() === $catName) {
-                    // var_dump($event->getCategory()->getName());// exit;
-                    // $eArray = $event;
-                    array_push($eArray[$catName], $event);
+                if ($event->getCategory() === $cat) {
+                    array_push($fArray[$catName]['events'], $event);
+                    $eventsCounter++;
+                }
+                if ($eventsCounter == 5) {
+                    break;
                 }
             }
         }
-        // exit;
         return $this->render('event/index.topics.html.twig', [
-            'events' => $eArray,
+            'events' => $fArray,
         ]);
     }
 
@@ -80,21 +84,26 @@ class EventController extends AbstractController
      */
     public function association(EventRepository $eventRepository, AssociationRepository $associationRepository): Response
     {
-        $events = $eventRepository->findBy(['publish'=>true]);
-        $assocs = $associationRepository->findAll();
+        $events = $eventRepository->findBy(['publish'=>true],['id'=>'desc']);
+        $associations = $associationRepository->findAll();
         $eArray = [];
-        foreach ($assocs as $assoc) {
+        foreach ($associations as $assoc) {
             $assocName = $assoc->getName();
-            $eArray[$assocName] = [];
+            // assocevents = [assocegory,events]
+            $eArray[$assocName]['association'] = $assoc;
+            $eArray[$assocName]['events'] = [];
+            $eventsCounter = 0;
             foreach ($events as $event) {
-                if ($event->getAssociation()->getName() === $assocName) {
-                    // var_dump($event->getCategory()->getName());// exit;
-                    // $eArray = $event;
-                    array_push($eArray[$assocName], $event);
+                if ($event->getAssociation() === $assoc) {
+                    array_push($eArray[$assocName]['events'], $event);
+                    $eventsCounter++;
+                }
+                if ($eventsCounter == 5){
+                    break;
                 }
             }
         }
-        // exit;
+        // dump($eArray); exit;
         return $this->render('event/index.associations.html.twig', [
             'events' => $eArray,
         ]);
@@ -146,7 +155,7 @@ class EventController extends AbstractController
     {
         return $this->render('event/show.html.twig', [
             'event' => $event,
-            'relatedEvents' => $eventRepository->findBy(['category'=>$event->getCategory()]),
+            'relatedEvents' => $eventRepository->findBy(['publish'=>true,'category'=>$event->getCategory()],['id'=>'desc']),
         ]);
     }
 
