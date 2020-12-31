@@ -15,34 +15,53 @@
     <div class="row mb-3">
         <div class="col-12">
             <div class="card" style="background: {{event.category ? event.category.color }}5a;">
-                {# <img class="img-fluid" src="{{ event.imageFilename ? cloudinary_url(event.imageFilename,{"width": 1200}) : '' }}" class="img-fluid" alt="{{event.imageFilename}}"> #}
-                <img class="img-fluid" src="cloudinary_url(event.imageFilename,{"width": 1200}" class="img-fluid" alt="{{event.imageFilename}}">
-                {# <img class="img-fluid" src="{{vich_uploader_asset(event) }}" class="img-fluid" alt=""> #}
-                {# <img class="card-img-top" src="{{asset('uploads/images/' ~ event.imageFilename) }}" class="img-fluid" alt=""> #}
-                <div class="card-body">
-                    <h4 class="card-title">
-                        {{ event.title }}
-                    </h4>
-                    <p class="card-text">{{ event.description|raw }}</p>
-                    <div class="row">
-                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">venue: </span>{{ event.venue }}</p>
-                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">category: </span><a href="{{path('category_show',{id:event.category.id})}}">{{ event.category }}</a></p>
-                        <p class="card-text col-xs-12 col-sm-6 col-md-4"><span class="text-uppercase text-muted small badge">association: </span><a href="{{path('association_show',{id: event.association.id})}}">{{ event.association }}</a></p>
-                        <p class="col-12">Event Dates</p>
-                        <div class="col-12">
-                            <div class="list-group list-group-flush">
-                                {% for row in event.eventDates %}
-                                    <div class="list-group-item mb-2">
-                                        <div><span class="text-uppercase text-muted small badge">date: </span>{{ row.eventDate ? row.eventDate|date('F j Y') : '' }}</div>
-                                        <div><span class="text-uppercase text-muted small badge">starting: </span>{{ row.startingTime ? row.startingTime|date('h:s') : '' }}</div>
-                                        <div><span class="text-uppercase text-muted small badge">end: </span>{{ row.endingTime ? row.endingTime|date('h:s') : '' }}</div>
+                <div class="row">
+                    <div class="col" style='background: url("{{cloudinary_url(event.imageFilename)}}"); background-position: center; background-repeat: none; background-size: cover'>
+                        {# <img class="img-fluid" src="{{ event.imageFilename ? cloudinary_url(event.imageFilename,{"width": 1200}) : '' }}" alt="{{event.imageFilename}}"> #}
+                        {# <img class="img-fluid" src="{{cloudinary_url(event.imageFilename)}}" alt="{{event.imageFilename}}"> #}
+                        {# <img class="img-fluid" src="{{vich_uploader_asset(event) }}" class="img-fluid" alt=""> #}
+                        {# <img class="card-img-top" src="{{asset('uploads/images/' ~ event.imageFilename) }}" class="img-fluid" alt=""> #}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                                <h4 class="card-title">
+                                    {{ event.title }}
+                                </h4>
+                                <p class="card-text">{{ event.description|raw }}</p>
+                                <div class="row">
+                                    <p class="col-12">Event Dates:</p>
+                                    <div class="col-12">
+                                        <div class="list-group list-group-flush">
+                                            {% for row in event.eventDates %}
+                                                <div class="list-group-item mb-2">
+                                                    <div><span class="text-uppercase text-muted small badge">date: </span>{{ row.eventDate ? row.eventDate|date('F j Y') : '' }}</div>
+                                                    <div><span class="text-uppercase text-muted small badge">starting: </span>{{ row.startingTime ? row.startingTime|date('h:s') : '' }}</div>
+                                                    <div><span class="text-uppercase text-muted small badge">end: </span>{{ row.endingTime ? row.endingTime|date('h:s') : '' }}</div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
-                                {% endfor %}
-                            </div>
+                                    <div class="col-12 card-text">
+                                        <div>
+                                            <span class="text-uppercase text-muted small badge">venue: </span>
+                                            {{ event.venue }}
+                                        </div>
+                                        <div>
+                                            <span class="text-uppercase text-muted small badge">category: </span>
+                                            <a href="{{path('category_show',{id:event.category.id})}}">{{ event.category }}</a>
+                                        </div>
+                                        <div>
+                                            <span class="text-uppercase text-muted small badge">association: </span>
+                                            <a href="{{path('association_show',{id: event.association.id})}}">{{ event.association }}</a>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>
-                {# <a class="card-footer bg-warning btn btn-sm btn-warning" href="{{ path('event_edit', {'id': event.id}) }}">edit</a> #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="card-footer bg-warning btn btn-sm btn-warning" href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
+                {% endif %}
             </div>
         </div>
     </div>

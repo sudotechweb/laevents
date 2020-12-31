@@ -1,6 +1,6 @@
 <div class="row mb-3">
     <div class="col">
-        <p class="h4">Events related by event category</p>
+        <p class="lead">Other events in this category</p>
         <div class="card-columns d-none d-md-block">
             {% for relatedEvent in relatedEvents %}
                 {% if relatedEvent.id is same as(event.id) %}
