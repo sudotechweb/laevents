@@ -125,6 +125,8 @@ class EventCrudController extends AbstractCrudController
         //     ->setBasePath('uploads/images/events')
         // ;
         $imageFile = ImageField::new('imageFile')
+            ->setUploadDir('')
+            ->setProperty('help')
             ->onlyOnForms()
             ->setFormType(VichImageType::class)
             ->setRequired(true)

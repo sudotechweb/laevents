@@ -1,17 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
-{# {{ encore_entry_link_tags('bootstrapcalendarcss') }} #}
-{% endblock %}
-
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    {# <div class="row">
-        <div class="col-12">
-            <p class="lead text-info">Upcoming Events</p>
-        </div>
-    </div> #}
     <div class="row">
         {% include "event/snippets/calendar.html.twig" %}
     </div>
@@ -22,6 +13,7 @@
         {% include "event/snippets/summary.html.twig" with {events: nextMonthEvents} %}
     </div>
 {% endblock %}
+
 {% block javascripts %}
     {{ encore_entry_script_tags('bootstrapcalendarjs') }}
 {% endblock %}

@@ -17,11 +17,13 @@
         {% if eventItems.association is defined %}
             {% set association = eventItems.association %}
             <div class="row">
-                <div class="col mb-2 py-1 border-bottom">
-                    <button class="btn btn-block">
-                        <span class="float-left">{{association.name}}</span>
-                        <a class="badge badge-primary float-right" href="{{path('association_show', {id: association.id})}}">view all events</a>
-                    </button>
+                <div class="col mb-2 py-1 border-bottom bg-dark">
+                    <div class="btn btn-block">
+                        <div class="float-left">
+                            <span class="lead">{{association.name}}</span>
+                        </div>
+                        <a role="button" class="btn btn-dark btn-sm float-right" href="{{path('association_show', {id: association.id})}}">view all events organized by {{association.name}}</a>
+                    </div>
                 </div>
             </div>
         {% endif %}
