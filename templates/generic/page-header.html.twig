@@ -2,18 +2,20 @@
     <div class="col-12">
         <p class="h1 text-info text-capitalize">{{pagetitle is defined ? pagetitle : 'Page Title'}}</p>
     </div>
-    {% if actions is defined %}
-        <div class="col-12 d-md-flex justify-content-start">
-            {% for action in actions %}
-                <span class="badge badge-{{action.class|default('danger')}} p-2">
-                    {% if action.id is defined %}
-                        <a class="text-capitalize text-dark" href="{{path(action.name, {id: action.id})}}">{{action.label}}</a>
-                    {% else %}
-                        <a class="text-capitalize text-dark" href="{{path(action.name)}}">{{action.label}}</a>
-                    {% endif %}
-                </span>
-            {% endfor %}
-        </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        {% if actions is defined %}
+            <div class="col-12 d-md-flex justify-content-start">
+                {% for action in actions %}
+                    <span class="badge badge-{{action.class|default('danger')}} p-2">
+                        {% if action.id is defined %}
+                            <a class="text-capitalize text-dark" href="{{path(action.name, {id: action.id})}}">{{action.label}}</a>
+                        {% else %}
+                            <a class="text-capitalize text-dark" href="{{path(action.name)}}">{{action.label}}</a>
+                        {% endif %}
+                    </span>
+                {% endfor %}
+            </div>
+        {% endif %}
     {% endif %}
     {% if subtitle is defined %}
         <div class="col-12">
@@ -21,4 +23,3 @@
         </div>
     {% endif %}
 </section>
-<hr>
