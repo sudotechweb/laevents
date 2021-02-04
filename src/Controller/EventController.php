@@ -130,17 +130,19 @@ class EventController extends AbstractController
             //         'End' => date_format($form->getData()->getEnd(), 'd-m-y'),
             //     ])
             // ;
-            $featuredFile = $form->get('featuredImage')->getData();
-            if ( $featuredFile) {
-                $featuredFileName = $fileUploader->upload($featuredFile);
-                $event->setImageFilename($featuredFileName);
-            }
+            // if ($form->get('featuredImage')) {
+            //     $featuredFile = $form->get('featuredImage')->getData();
+            //     if ( $featuredFile) {
+            //         $featuredFileName = $fileUploader->upload($featuredFile);
+            //         $event->setImageFilename($featuredFileName);
+            //     }
+            // }
             $event->setPublish(false);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
 
-            return $this->redirectToRoute('event_show', ['id'=> $event->getId()]);
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('event/new.html.twig', [
