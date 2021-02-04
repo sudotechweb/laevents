@@ -135,6 +135,7 @@ class EventController extends AbstractController
                 $featuredFileName = $fileUploader->upload($featuredFile);
                 $event->setImageFilename($featuredFileName);
             }
+            $event->setPublish(false);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
