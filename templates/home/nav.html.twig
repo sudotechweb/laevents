@@ -8,6 +8,8 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             {{ knp_menu_render('main', {
                 'currentClass': 'active',
+                'ancestorClass': 'active',
+                'parentClass': 'active',
             })}}
             {% set adminUrl = ea_url()
                 .setController('App\\Controller\\Admin\\EventCrudController')

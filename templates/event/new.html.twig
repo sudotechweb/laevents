@@ -3,6 +3,39 @@
 {% block title %}New Event{% endblock %}
 
 {% block body %}
-    <h1>Create New Event</h1>
-    {{ include('event/_form.html.twig') }}
+    {% include "generic/page-header.html.twig" with {
+        pagetitle: 'Add a new Event',
+        actions: [{
+            name: 'category_new',
+            label: 'add new category',
+            class: 'success',
+        },{
+            name: 'event_new',
+            label: 'add new event',
+            class: 'info',
+        }]
+    } %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-12">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="col-12">
+                    {{ form_row(form.venue) }}
+                </div>
+                <div class="col-12">
+                    {{ form_row(form.category) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            {{ form_row(form.description) }}
+        </div>
+        <div class="col">
+            <button class="btn btn-success mt-3">{{ button_label|default('Save') }}</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
 {% endblock %}

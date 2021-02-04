@@ -49,7 +49,8 @@ class MenuBuilder {
         //     ],
         // ]);
         $menu->addChild('Categories', [
-            'route'=>'event_category_index',
+            // 'route'=>'event_category_index',
+            'route'=>'category_index',
             'attributes' => [
                 'class' => 'nav-item nav'
             ],
@@ -78,7 +79,8 @@ class MenuBuilder {
         //     ]);
         // }
         $menu->addChild('Associations', [
-            'route'=>'event_association_index',
+            // 'route'=>'event_association_index',
+            'route'=>'association_index',
             'attributes' => [
                 'class' => 'nav-item nav'
             ],
