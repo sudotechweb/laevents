@@ -1,41 +1,97 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Association index{% endblock %}
-
+{% block title %}Associations & Clubs{% endblock %}
 {% block body %}
-    <h1>Association index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for association in associations %}
-            <tr>
-                <td>{{ association.id }}</td>
-                <td>{{ association.name }}</td>
-                <td>{{ association.email }}</td>
-                <td>{{ association.phone }}</td>
-                <td>{{ association.description }}</td>
-                <td>
-                    <a href="{{ path('association_show', {'id': association.id}) }}">show</a>
-                    <a href="{{ path('association_edit', {'id': association.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('association_new') }}">Create new</a>
+    {% include "generic/page-header.html.twig" with {
+        pagetitle: 'Associations & Clubs in Lae',
+        actions: [{
+            name: 'association_new',
+            label: 'add new association',
+            class: 'success',
+        },{
+            name: 'event_new',
+            label: 'add new event',
+            class: 'info',
+        }]
+    } %}
+    <div class="row d-none">
+        <div class="col-12">
+            <table class="table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Color</th>
+                        <th>Events</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for association in associations %}
+                    <tr>
+                        <td>{{ association.name }}</td>
+                        <td style="background-color: lime;"></td>
+                        <td>{{ association.events.count }}</td>
+                        <td class="bt-group">
+                            <a class="btn btn-sm btn-info" href="{{ path('association_show', {'id': association.id}) }}">show</a>
+                            <a class="btn btn-sm btn-warning" href="{{ path('association_edit', {'id': association.id}) }}">edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% for cat in associations %}
+    <div class="row mb-5">
+        <div class="col-sm-12 col-md-4">
+            <p class="h1 display-3 text-capitalize">{{cat.name}}</p>
+            <p class="text-muted">{{cat.description}}</p>
+        </div>
+        <div class="col-sm-12 col-md-8">
+            {# <div class="card-columns"> #}
+            <div class="list-group">
+            {% for item in cat.events %}
+                {% if loop.index < 3 %}
+                    {% set startDate = date() %}
+                    {% set endDate = date() %}
+                    {% set allDayEvent = false %}
+                    {% set eventDurationHours = date() %}
+                    {% for date in item.eventDates %}
+                        {% set startDate = date.eventDate %}
+                        {% set endDate = date.eventDate %}
+                        {% set allDayEvent = date.allday %}
+                        {% if allDayEvent %}
+                            {% set eventDurationHours = date.startingTime.diff(date.endingTime) %}
+                        {% endif %}
+                    {% endfor %}
+                    {% set dateDiff = startDate.diff(endDate)|date %}
+                    {# <div class="card" style="background: linear-gradient({{item.association ? item.association.color }}5a 95%,{{item.association ? item.association.color }} 95%);">
+                        <img class="card-img-top" src="{{ cloudinary_url(item.imageFilename)}}" alt="{{item.title~'~'~item.imageFilename}}" />
+                        <div class="card-body">
+                            <h4 class="card-title small"><a href="{{path('event_show',{id: item.id})}}">{{ item.title }}</a></h4>
+                            <p class="card-text text-muted small">A {{ allDayEvent is not null ? 'full day' : eventDurationHours ~ ' hour' }} event starting on {{ startDate|date('F j Y') }}. {{item.venue}} is the venue for this event.</p>
+                            <span class="badge badge-pill badge-danger float-right mb-2 py-2">{{startDate < date() ? 'expired' : null}}</span>
+                        </div>
+                    </div> #}
+                        <a href="{{path('event_show',{id: item.id})}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{item.title}}</h5>
+                            </div>
+                            <span class="badge badge-pill badge-danger float-right mb-2 py-2">{{startDate < date() ? 'expired' : null}}</span>
+                            <small>{{ allDayEvent is not null ? 'full day' : eventDurationHours ~ ' hour' }} {{item.association}} at {{item.venue}}</small>
+                        </a>
+                {% endif %}
+            {% endfor %}
+                <a href="{{path('association_show',{id: cat.id})}}" class="text-left btn btn-primary">view all events <span class="float-right small">{{cat.events.count}}</span></a>
+                    {# <i class="fas fa-angle-right fa-10x fa-fw card-img"></i> #}
+                    {# <i class="fa fa-arrow-right card-img" aria-hidden="true"></i> #}
+                {# </div> #}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}

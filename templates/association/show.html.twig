@@ -3,10 +3,10 @@
 {% block title %}Association - {{ association.name }}{% endblock %}
 
 {% block body %}
-    {% include "generic/page-header.html.twig" with { pagetitle: association.name ~ ' Association', subtitle: 'All events organized by the association <em>'~association.name~'</em>' } %}
+    {% include "generic/page-header.html.twig" with { pagetitle: association.name, subtitle: 'All events organized by the association <em>'~association.name~'</em>' } %}
     <div class="row mb-3">
-        <div class="col"><img src="{{ asset('uploads/images/' ~ association.logoFileName) }}" class="img-fluid"></div>
-        <div class="col-sm-12 col-md-8">
+        {# <div class="col"><img src="{{ asset('uploads/images/' ~ association.logoFileName) }}" class="img-fluid"></div> #}
+        {# <div class="col-sm-12 col-md-8">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">{{ association.name|raw }}</h4>
@@ -15,7 +15,7 @@
                     <p class="card-text">{{ association.description|raw }}</p>
                 </div>
             </div>
-        </div>
+        </div> #}
     </div>
     <div class="mb-3">
         {% include "event/snippets/cards.html.twig" %}

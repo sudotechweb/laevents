@@ -2,17 +2,19 @@
 
 namespace App\Menu;
 
+use App\Repository\CategoryRepository;
 use Knp\Menu\FactoryInterface;
 
 class MenuBuilder {
-    private $factory;
+    private $factory, $categoryRepository;
 
     /**
      * @param FactoryInterface $factory
     */
-    public function __construct(FactoryInterface $factory)
+    public function __construct(FactoryInterface $factory, CategoryRepository $categoryRepository)
     {
         $this->factory = $factory;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function createMenu(array $options)
@@ -47,7 +49,8 @@ class MenuBuilder {
         //     ],
         // ]);
         $menu->addChild('Categories', [
-            'route'=>'event_category_index',
+            // 'route'=>'event_category_index',
+            'route'=>'category_index',
             'attributes' => [
                 'class' => 'nav-item nav'
             ],
@@ -58,8 +61,26 @@ class MenuBuilder {
                 'class' => 'nav-link'
             ],
         ]);
+        // foreach ($this->categoryRepository->findAll() as $cat) {
+        //     $menu->addChild($cat->getName(), [
+        //         'route'=>'category_show',
+        //         'parameters' => [
+        //             'id' => $cat->getId(),
+        //         ],
+        //         'attributes' => [
+        //             'class' => 'nav-item nav d-none'
+        //         ],
+        //         'childrenAttributes' => [
+        //             'class' => 'nav-item'
+        //         ],
+        //         'linkAttributes' => [
+        //             'class' => 'nav-link'
+        //         ],
+        //     ]);
+        // }
         $menu->addChild('Associations', [
-            'route'=>'event_association_index',
+            // 'route'=>'event_association_index',
+            'route'=>'association_index',
             'attributes' => [
                 'class' => 'nav-item nav'
             ],
