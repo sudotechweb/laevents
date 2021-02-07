@@ -6,6 +6,13 @@
 }
 
 /* // Small devices (landscape phones, 576px and up) */
+@media (max-width: 768px) { 
+  .navbar-brand {
+    position: relative;
+    left: 35%;
+  }
+}
+/* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
   .card-columns {
     column-count: 2;
@@ -33,4 +40,8 @@
   position: sticky;
   top: 0px;
   z-index: 99;
+}
+
+.active {
+  border-bottom: 2px solid var(--green);
 }

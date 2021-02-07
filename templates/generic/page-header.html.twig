@@ -1,6 +1,6 @@
 <section class="row">
     <div class="col-12">
-        <p class="h1 text-info text-capitalize">{{pagetitle is defined ? pagetitle : 'Page Title'}}</p>
+        <p class="h1 text-success text-capitalize">{{pagetitle is defined ? pagetitle : 'Page Title'}}</p>
     </div>
     {% if is_granted('ROLE_ADMIN') %}
         {% if actions is defined %}

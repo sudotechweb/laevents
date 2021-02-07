@@ -82,12 +82,12 @@
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{item.title}}</h5>
                             </div>
-                            <span class="badge badge-pill badge-danger float-right mb-2 py-2">{{startDate < date() ? 'expired' : null}}</span>
+                            <span class="badge badge-pill badge-primary float-right mb-2 py-2">{{startDate < date() ? 'expired' : null}}</span>
                             <small>{{ allDayEvent is not null ? 'full day' : eventDurationHours ~ ' hour' }} {{item.association}} at {{item.venue}}</small>
                         </a>
                 {% endif %}
             {% endfor %}
-                <a href="{{path('category_show',{id: cat.id})}}" class="text-left btn btn-primary">view all events <span class="float-right small">{{cat.events.count}}</span></a>
+                <a href="{{path('category_show',{id: cat.id})}}" class="text-left btn btn-warning">view all events <span class="float-right small">{{cat.events.count}}</span></a>
                     {# <i class="fas fa-angle-right fa-10x fa-fw card-img"></i> #}
                     {# <i class="fa fa-arrow-right card-img" aria-hidden="true"></i> #}
                 {# </div> #}
