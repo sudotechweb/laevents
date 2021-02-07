@@ -33,7 +33,7 @@ class AssociationCrudController extends AbstractCrudController
         if (Crud::PAGE_INDEX === $pageName) {
             return [$id, $name, $events];
         } else {
-            return [$name, $email, $phone, $description, $logoFileName];
+            return [$name, $email, $phone, $description];
         }
     }
 }
