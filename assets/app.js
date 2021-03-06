@@ -16,3 +16,13 @@ console.log('Hello Webpack Encore! Edit me in assets/app.js');
 $('#monthlyView').on('change',(e)=> {
     console.log('changed');
 })
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    document.getElementById("menu-nav-logo").style.height = "30px";
+  } else {
+    document.getElementById("menu-nav-logo").style.height = "100px";
+  }
+} 

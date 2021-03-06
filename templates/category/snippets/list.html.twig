@@ -1,0 +1,13 @@
+{# {{ dump(categories) }} #}
+<div class="col-12">
+{% for category in categories %}
+    <a href="{{path('category_show',{'id': category.id})}}" class="btn btn-lg btn-action mx-1 my-1" style="background: {{category.color}}5a;">{{category.name}}</a>
+{% else %}
+    No categories found.
+    {% if app.user %}
+        <a name="addNewCategory" id="addNewCategory" class="btn btn-success" href="{{path('category_new')}}" role="button">Add new category</a>
+    {% else %}
+        Please login as administrator and add a few categories.
+    {% endif %}
+{% endfor %}
+</div>
