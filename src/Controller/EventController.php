@@ -7,25 +7,42 @@ use App\Form\EventType;
 use App\Repository\AssociationRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\EventRepository;
+use App\Service\AdminVoterService;
 use App\Service\FileUploader;
 use DateTime;
 use DateTimeZone;
+use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/event")
  */
 class EventController extends AbstractController
 {
+    private $seo;
+    public function __construct(SeoPageInterface $seo)
+    {
+        $this->seo = $seo;
+    }
+    
     /**
      * @Route("/", name="event_index", methods={"GET"})
      */
     public function index(EventRepository $eventRepository): Response
     {
+        $this->seo
+            ->addTitle('Events')
+            ->addMeta('name', 'description', 'These are the events which are published on our web application.')
+            ->addMeta('property', 'og:title', 'Events')
+            ->addMeta('property', 'og:type', 'blog')
+            ->addMeta('property', 'og:url',  $this->generateUrl('event_index', [], UrlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description', 'These are the broad category topics that we use to categorize all events here on our web application.')
+        ;
         return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findBy(['publish'=>true]),
         ]);
@@ -114,6 +131,14 @@ class EventController extends AbstractController
      */
     public function new(Request $request, FileUploader $fileUploader): Response
     {
+        $this->seo
+            ->addTitle('Add New Event')
+            ->addMeta('name', 'description', 'Use this form to register your event with us and we\'ll have it published on our site for you.')
+            ->addMeta('property', 'og:title', 'Associations & Events')
+            ->addMeta('property', 'og:type', 'blog')
+            ->addMeta('property', 'og:url',  $this->generateUrl('event_new', [], UrlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description', 'Use this form to register your event with us and we\'ll have it published on our site for you.')
+        ;
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
@@ -156,6 +181,14 @@ class EventController extends AbstractController
      */
     public function show(Event $event, EventRepository $eventRepository): Response
     {
+        $this->seo
+            ->addTitle($event->getTitle())
+            ->addMeta('name', 'description', $event->getDescription())
+            ->addMeta('property', 'og:title', $event->getTitle())
+            ->addMeta('property', 'og:type', 'blog')
+            ->addMeta('property', 'og:url',  $this->generateUrl('event_show', ['id'=>$event->getId()], UrlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description', $event->getDescription())
+        ;
         return $this->render('event/show.html.twig', [
             'event' => $event,
             'relatedEvents' => $eventRepository->findBy(['publish'=>true,'category'=>$event->getCategory()],['id'=>'desc']),
@@ -165,8 +198,12 @@ class EventController extends AbstractController
     /**
      * @Route("/{id}/edit", name="event_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Event $event, FileUploader $fileUploader): Response
+    public function edit(Request $request, Event $event, FileUploader $fileUploader, AdminVoterService $adminVoterService): Response
     {
+        if ($adminVoterService->isAdmin($this->getUser()->getRoles())) {
+            return $this->redirectToRoute('home');
+        }
+
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
@@ -192,8 +229,12 @@ class EventController extends AbstractController
     /**
      * @Route("/{id}", name="event_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Event $event): Response
+    public function delete(Request $request, Event $event, AdminVoterService $adminVoterService): Response
     {
+        if ($adminVoterService->isAdmin($this->getUser()->getRoles())) {
+            return $this->redirectToRoute('home');
+        }
+        
         if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($event);

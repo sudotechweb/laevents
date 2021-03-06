@@ -48,7 +48,7 @@
     </div>
     {% for cat in categories %}
     <div class="row mb-5">
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-4" style="background-color: {{category.color|default('purple')}}80">
             <p class="h1 display-3 text-capitalize">{{cat.name}}</p>
             <p class="text-muted">{{cat.description}}</p>
         </div>

@@ -6,18 +6,32 @@ use App\Repository\EventRepository;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class HomeController extends AbstractController
 {
+    private $seo;
+    public function __construct(SeoPageInterface $seo)
+    {
+        $this->seo = $seo;
+    }
+    
     /**
      * @Route("/", name="home")
      */
     public function index(EventRepository $eventRepository)
     {
+        $this->seo
+            ->addTitle('Home')
+            ->addMeta('property', 'og:title', 'Home')
+            ->addMeta('property', 'og:type', 'blog')
+            ->addMeta('property', 'og:url',  $this->generateUrl('home', [], UrlGeneratorInterface::ABSOLUTE_URL))
+        ;
         $currentDate = new DateTime('now', new DateTimeZone('Pacific/Port_Moresby'));
         $nextMonthDate = new DateTime('now', new DateTimeZone('Pacific/Port_Moresby'));
         $nextMonthDate->modify('first day of next month');
@@ -59,6 +73,14 @@ class HomeController extends AbstractController
      */
     public function about()
     {
+        $this->seo
+            ->addTitle('About Us')
+            ->addMeta('name', 'description', 'Lae, the capital of Morobe Province and the gateway to the Highland Provinces, is the second largest City in Papua New Guinea with a population of around 350,000 people (preliminary figures from the year 2011 census).')
+            ->addMeta('property', 'og:title', 'About Us')
+            ->addMeta('property', 'og:type', 'blog')
+            ->addMeta('property', 'og:url',  $this->generateUrl('about', [], UrlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description', 'Lae, the capital of Morobe Province and the gateway to the Highland Provinces, is the second largest City in Papua New Guinea with a population of around 350,000 people (preliminary figures from the year 2011 census).')
+        ;
         return $this->render('home/about.html.twig');
     }
 
@@ -67,6 +89,14 @@ class HomeController extends AbstractController
      */
     public function contact()
     {
+        $this->seo
+            ->addTitle('Contact Us')
+            ->addMeta('name', 'description', 'We love getting feedback. Please leave a review or suggestion through our contact page.')
+            ->addMeta('property', 'og:title', 'Contact Us')
+            ->addMeta('property', 'og:type', 'blog')
+            ->addMeta('property', 'og:url',  $this->generateUrl('contact', [], UrlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description', 'We love getting feedback. Please leave a review or suggestion through our contact page.')
+        ;
         return $this->render('home/contact.html.twig');
     }
 }
