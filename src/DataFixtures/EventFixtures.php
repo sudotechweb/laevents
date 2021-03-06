@@ -27,7 +27,7 @@ class EventFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $years = ['2020','2021'];
+        $years = ['2021'];
         foreach ($years as $year) {
             for ($h=0; $h < 3; $h++) { 
                 for ($i=1; $i <= 12; $i++) {
@@ -53,8 +53,8 @@ class EventFixtures extends Fixture
                                 ->setPublish(true)
                                 ->setImageFilename('events/yellow/iicjnnofyfuvjyz0voil')
                                 ->addEventDate($eventDate)
-                                ->setCategory($this->catRepo->findOneBy(['id'=>rand(221,231)]))
-                                ->setAssociation($this->assocRepo->findOneBy(['id'=>rand(8,10)]))
+                                ->setCategory($this->catRepo->findOneBy(['id'=>rand(25,37)]))
+                                ->setAssociation($this->assocRepo->findOneBy(['id'=>rand(10,16)]))
                             ;
                             $manager->persist($eventDate);
                             $manager->persist($event);

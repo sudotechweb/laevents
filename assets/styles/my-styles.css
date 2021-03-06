@@ -37,11 +37,20 @@
   }
 }
 .sticky {
-  position: sticky;
-  top: 0px;
-  z-index: 99;
+  /* position: sticky; */
+  /* top: 0px; */
+  z-index: 100;
 }
 
 .active {
   border-bottom: 2px solid var(--green);
+}
+
+#menu-nav .sticky{
+  position: fixed; /* Fixed position - sit on top of the page */
+  background: darkolivegreen;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full width */
+  transition: 0.2s; /* Add a transition effect (when scrolling - and font size is decreased) */
 }

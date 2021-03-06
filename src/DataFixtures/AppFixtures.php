@@ -22,13 +22,13 @@ class AppFixtures extends Fixture
     {
         $appuser = new Appuser();
         $appuser
-            ->setEmail('admin@laevents.com')
-            ->setPassword($this->upei->encodePassword($appuser,'password'))
+            ->setEmail('admin@whatsonlae.com')
+            ->setPassword($this->upei->encodePassword($appuser,'p@5$w0rd'))
             ->setRoles(['ROLE_ADMIN'=>'ROLE_ADMIN'])
         ;
         $manager->persist($appuser);
 
-        foreach ([0,1,2] as $key) {
+        foreach ([0,1,2,3,4,5] as $key) {
             $association = new Association();
             $association->setName($this->namegen->randomWord());
             $manager->persist($association);
